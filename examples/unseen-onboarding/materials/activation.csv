@@ -1,0 +1,5 @@
+segment,period,activated,invited,unit
+organic,2026-08,90,300,users
+paid,2026-08,80,400,users
+organic,2026-09,120,400,users
+paid,2026-09,,600,users

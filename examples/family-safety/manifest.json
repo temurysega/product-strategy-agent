@@ -1,0 +1,29 @@
+{
+  "id": "family-safety",
+  "title": "Круг доверия: понятное семейное подключение",
+  "date": "2026-11-08",
+  "brief": "brief.md",
+  "mode": "authored_reference",
+  "official_brief": false,
+  "actual_interviews": 0,
+  "actual_experiments": 0,
+  "allowed_hosts": ["www.cbr.ru", "support.mts.ru", "faces.t2.ru"],
+  "materials": [
+    {"id": "R01", "path": "materials/r01-cbr-2024.md", "title": "Банк России: исторический обзор 2024", "provenance": "public", "origin_url": "https://www.cbr.ru/analytics/ib/operations_survey/2024/", "locator": "line:8", "period": "2024", "phase": "baseline"},
+    {"id": "R02", "path": "materials/r02-cbr-2025.md", "title": "Банк России: обзор 2025", "provenance": "public", "origin_url": "https://www.cbr.ru/analytics/ib/operations_survey/2025/", "locator": "line:8", "period": "2025", "phase": "baseline"},
+    {"id": "R03", "path": "materials/r03-mts-family.md", "title": "МТС: семейное подключение", "provenance": "public", "origin_url": "https://support.mts.ru/zaschitnik/zaschitnik/kak-podklyuchit-zaschitnik", "locator": "line:8", "period": "snapshot-2026-11-08", "phase": "baseline"},
+    {"id": "R04", "path": "materials/r04-t2-bundle.md", "title": "T2: семейный пакет", "provenance": "public", "origin_url": "https://faces.t2.ru/mixx-all", "locator": "line:8", "period": "snapshot-2026-11-08", "phase": "baseline"},
+    {"id": "R05", "path": "materials/r05-access-log.md", "title": "Журнал ограничений доступа", "provenance": "owned", "origin_url": null, "locator": "line:6", "phase": "baseline"},
+    {"id": "R06", "path": "materials/r06-fixture-notes.md", "title": "Паспорт искусственных данных", "provenance": "synthetic", "origin_url": null, "locator": "line:3", "phase": "baseline"},
+    {"id": "R07", "path": "materials/r07-interviews.md", "title": "Вымышленные ролевые реплики", "provenance": "synthetic", "origin_url": null, "locator": "line:3", "phase": "baseline"},
+    {"id": "R09", "path": "materials/activation.csv", "title": "Искусственная активация", "provenance": "synthetic", "origin_url": null, "locator": "line:2", "phase": "baseline"},
+    {"id": "R10", "path": "materials/funnel.csv", "title": "Искусственная воронка", "provenance": "synthetic", "origin_url": null, "locator": "line:2", "phase": "baseline"},
+    {"id": "R11", "path": "materials/economics.csv", "title": "Сценарная экономика", "provenance": "synthetic", "origin_url": null, "locator": "line:3", "phase": "baseline"}
+  ],
+  "revision_materials": [
+    {"id": "R08", "path": "materials/r08-new-evidence.md", "title": "Имитация изменения маржи", "provenance": "synthetic", "origin_url": null, "locator": "line:6", "phase": "revision"}
+  ],
+  "outputs": ["outputs/research.md", "outputs/options.md", "outputs/product-strategy.md", "outputs/communication-strategy.md", "outputs/experiments.md", "outputs/decision-register.json", "outputs/changes.md", "outputs/expected-analysis.json"],
+  "arithmetic_command": "python examples/family-safety/reproduce.py",
+  "limitations": ["Бриф учебный", "Часть прямых сайтов недоступна", "Нет внутренних данных", "Интервью вымышлены", "Числа воронки и экономики искусственные", "Решение человека не получено"]
+}

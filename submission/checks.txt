@@ -1,0 +1,253 @@
+test_batch_supported_and_initialize_not_batched (test_mcp.MCPTests.test_batch_supported_and_initialize_not_batched) ... ok
+test_handshake_discovery_and_call (test_mcp.MCPTests.test_handshake_discovery_and_call) ... ok
+test_human_question_survives_new_process (test_mcp.MCPTests.test_human_question_survives_new_process) ... ok
+test_question_without_project_init_reports_error (test_mcp.MCPTests.test_question_without_project_init_reports_error) ... ok
+test_stdio_parse_failure_is_protocol_not_stdout_log (test_mcp.MCPTests.test_stdio_parse_failure_is_protocol_not_stdout_log) ... ok
+test_tools_need_initialization (test_mcp.MCPTests.test_tools_need_initialization) ... ok
+test_unknown_tool_protocol_error_and_bad_arguments_tool_error (test_mcp.MCPTests.test_unknown_tool_protocol_error_and_bad_arguments_tool_error) ... ok
+test_authentication_error_is_not_unknown_billing (test_provider.ProviderTests.test_authentication_error_is_not_unknown_billing) ... ok
+test_env_does_not_execute_or_overwrite (test_provider.ProviderTests.test_env_does_not_execute_or_overwrite) ... ok
+test_http_errors_do_not_echo_secrets_or_retry (test_provider.ProviderTests.test_http_errors_do_not_echo_secrets_or_retry) ... ok
+test_http_timeout_is_unknown_billing (test_provider.ProviderTests.test_http_timeout_is_unknown_billing) ... ok
+test_incomplete_http_body_marks_charge_uncertain (test_provider.ProviderTests.test_incomplete_http_body_marks_charge_uncertain) ... ok
+test_invalid_cost_values_cannot_bypass_budget (test_provider.ProviderTests.test_invalid_cost_values_cannot_bypass_budget) ... ok
+test_long_context_tier_is_reserved (test_provider.ProviderTests.test_long_context_tier_is_reserved) ... ok
+test_payload_and_accounting_come_from_provider (test_provider.ProviderTests.test_payload_and_accounting_come_from_provider) ... ok
+test_public_catalog_never_sends_key (test_provider.ProviderTests.test_public_catalog_never_sends_key) ... ok
+test_reservation_uses_live_catalog_and_requires_tool_support (test_provider.ProviderTests.test_reservation_uses_live_catalog_and_requires_tool_support) ... ok
+test_ambiguous_network_error_is_not_retried (test_runtime.RuntimeTests.test_ambiguous_network_error_is_not_retried) ... ok
+test_budget_prevents_paid_call (test_runtime.RuntimeTests.test_budget_prevents_paid_call) ... ok
+test_business_choice_requires_human_and_records_commitment (test_runtime.RuntimeTests.test_business_choice_requires_human_and_records_commitment) ... {
+  "status": "approved",
+  "steps": 1,
+  "cost_usd": 0.01,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": null,
+  "updated_at": "2026-11-08T09:33:57+00:00"
+}
+ok
+test_checkpoint_resume_does_not_repeat_tools (test_runtime.RuntimeTests.test_checkpoint_resume_does_not_repeat_tools) ... ok
+test_human_answer_survives_pending_checkpoint (test_runtime.RuntimeTests.test_human_answer_survives_pending_checkpoint) ... {
+  "status": "ready",
+  "steps": 1,
+  "cost_usd": 0.01,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": null,
+  "updated_at": "2026-11-08T09:33:57+00:00"
+}
+ok
+test_human_gate_cancels_batched_old_plan_and_preserves_reply (test_runtime.RuntimeTests.test_human_gate_cancels_batched_old_plan_and_preserves_reply) ... {
+  "status": "ready",
+  "steps": 1,
+  "cost_usd": 0.01,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": null,
+  "updated_at": "2026-11-08T09:33:57+00:00"
+}
+ok
+test_interrupted_tool_is_not_replayed (test_runtime.RuntimeTests.test_interrupted_tool_is_not_replayed) ... ok
+test_invalid_alternatives_do_not_approve (test_runtime.RuntimeTests.test_invalid_alternatives_do_not_approve) ... ok
+test_malformed_specialist_output_is_paid_and_recoverable (test_runtime.RuntimeTests.test_malformed_specialist_output_is_paid_and_recoverable) ... ok
+test_paid_response_checkpoint_does_not_call_provider_again (test_runtime.RuntimeTests.test_paid_response_checkpoint_does_not_call_provider_again) ... ok
+test_project_can_be_moved_between_sessions (test_runtime.RuntimeTests.test_project_can_be_moved_between_sessions) ... ok
+test_read_method_whitelist_and_bounded_reference (test_runtime.RuntimeTests.test_read_method_whitelist_and_bounded_reference) ... ok
+test_real_toolbox_new_topic_from_material_to_decision (test_runtime.RuntimeTests.test_real_toolbox_new_topic_from_material_to_decision) ... ok
+test_returned_tool_error_routes_to_review_model (test_runtime.RuntimeTests.test_returned_tool_error_routes_to_review_model) ... ok
+test_review_reopens_changed_or_due_decision (test_runtime.RuntimeTests.test_review_reopens_changed_or_due_decision) ... {
+  "status": "approved",
+  "steps": 1,
+  "cost_usd": 0.01,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": null,
+  "updated_at": "2026-11-08T09:33:59+00:00"
+}
+{
+  "as_of": "2027-01-01",
+  "owner": "PM",
+  "metric": "Активация",
+  "review_threshold": "Рост жалоб",
+  "due": "2027-02-01",
+  "due_now": false,
+  "impacted_claims": [
+    "C1"
+  ],
+  "status": "review_required"
+}
+ok
+test_revoked_evidence_blocks_submission (test_runtime.RuntimeTests.test_revoked_evidence_blocks_submission) ... ok
+test_specialist_is_real_second_provider_call_and_metered (test_runtime.RuntimeTests.test_specialist_is_real_second_provider_call_and_metered) ... ok
+test_specialist_loads_repository_role_prompt (test_runtime.RuntimeTests.test_specialist_loads_repository_role_prompt) ... ok
+test_unknown_cost_blocks_tools_until_reconciled (test_runtime.RuntimeTests.test_unknown_cost_blocks_tools_until_reconciled) ... {
+  "status": "ready",
+  "steps": 1,
+  "cost_usd": 0.04,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": null,
+  "updated_at": "2026-11-08T09:34:00+00:00"
+}
+ok
+test_changed_material_marks_previous_claim_stale (test_tools.ToolTests.test_changed_material_marks_previous_claim_stale) ... ok
+test_corrupt_office_file_is_recoverable_tool_error (test_tools.ToolTests.test_corrupt_office_file_is_recoverable_tool_error) ... ok
+test_corrupt_registry_is_visible_not_empty_evidence (test_tools.ToolTests.test_corrupt_registry_is_visible_not_empty_evidence) ... ok
+test_csv_counts_not_average_of_rates (test_tools.ToolTests.test_csv_counts_not_average_of_rates) ... ok
+test_csv_missing_invalid_duplicate_rejected (test_tools.ToolTests.test_csv_missing_invalid_duplicate_rejected) ... ok
+test_csv_unit_mismatch_rejected (test_tools.ToolTests.test_csv_unit_mismatch_rejected) ... ok
+test_document_formats_and_transcript_timestamps (test_tools.ToolTests.test_document_formats_and_transcript_timestamps) ... ok
+test_economics_units_and_sensitivity (test_tools.ToolTests.test_economics_units_and_sensitivity) ... ok
+test_hypothesis_memory_cannot_be_laundered (test_tools.ToolTests.test_hypothesis_memory_cannot_be_laundered) ... ok
+test_idempotent_ingestion_and_locator (test_tools.ToolTests.test_idempotent_ingestion_and_locator) ... ok
+test_nonfinite_and_huge_arguments_are_rejected (test_tools.ToolTests.test_nonfinite_and_huge_arguments_are_rejected) ... ok
+test_parallel_registry_writer_is_rejected_without_mutation (test_tools.ToolTests.test_parallel_registry_writer_is_rejected_without_mutation) ... ok
+test_public_requires_source_url_and_args_strict (test_tools.ToolTests.test_public_requires_source_url_and_args_strict) ... ok
+test_redirect_is_revalidated_before_connect (test_tools.ToolTests.test_redirect_is_revalidated_before_connect) ... ok
+test_report_unknown_citation_not_saved (test_tools.ToolTests.test_report_unknown_citation_not_saved) ... ok
+test_revocation_cascades_and_invalidates_report (test_tools.ToolTests.test_revocation_cascades_and_invalidates_report) ... ok
+test_source_instructions_are_data_and_cannot_execute (test_tools.ToolTests.test_source_instructions_are_data_and_cannot_execute) ... ok
+test_ssrf_private_dns_and_non_allowlisted (test_tools.ToolTests.test_ssrf_private_dns_and_non_allowlisted) ... ok
+test_symlink_outside_materials_blocked (test_tools.ToolTests.test_symlink_outside_materials_blocked) ... skipped 'OS does not permit symlinks'
+test_synthetic_cannot_become_fact (test_tools.ToolTests.test_synthetic_cannot_become_fact) ... ok
+test_traversal_and_hidden_files_blocked (test_tools.ToolTests.test_traversal_and_hidden_files_blocked) ... ok
+test_zip_bomb_rejected_before_xml_read (test_tools.ToolTests.test_zip_bomb_rejected_before_xml_read) ... ok
+test_actual_missing_numerator_rejected_without_fabricating_report (test_unseen.UnseenOnboardingToolTests.test_actual_missing_numerator_rejected_without_fabricating_report) ... ok
+test_cohort_maturity_caveat_survives_a_new_toolbox_session (test_unseen.UnseenOnboardingToolTests.test_cohort_maturity_caveat_survives_a_new_toolbox_session) ... ok
+test_injected_instruction_remains_data_without_changing_counts_or_approval (test_unseen.UnseenOnboardingToolTests.test_injected_instruction_remains_data_without_changing_counts_or_approval) ... ok
+test_missing_denominator_is_not_zero_or_inferred_from_other_period (test_unseen.UnseenOnboardingToolTests.test_missing_denominator_is_not_zero_or_inferred_from_other_period) ... ok
+test_organic_count_growth_is_not_rate_growth (test_unseen.UnseenOnboardingToolTests.test_organic_count_growth_is_not_rate_growth) ... ok
+test_prior_synthetic_answer_cannot_become_fact_after_new_session (test_unseen.UnseenOnboardingToolTests.test_prior_synthetic_answer_cannot_become_fact_after_new_session) ... ok
+
+----------------------------------------------------------------------
+Ran 64 tests in 4.514s
+
+OK (skipped=1)
+
+$ python -m strategy_agent doctor
+{
+  "python": "3.12.10",
+  "python_supported": true,
+  "openrouter_key_configured": false,
+  "models": [
+    "google/gemini-2.5-flash",
+    "anthropic/claude-sonnet-4.5"
+  ],
+  "network_checked": false,
+  "live_generation_tested": false,
+  "project_template": ".",
+  "dependencies": "stdlib; optional pypdf for PDF"
+}
+
+$ python scripts/demo.py --project workspace/verification --phase pause
+{
+  "mode": "offline_fixture",
+  "live_model_used": false,
+  "phase": "pause",
+  "status": "paused",
+  "steps_total": 2,
+  "api_cost_usd": 0.0,
+  "elapsed_seconds": 1.2203,
+  "source_count": 10,
+  "claim_count": 0,
+  "project": "workspace/verification",
+  "note": "Время только этого воспроизведения; не время исследования человеком и не live-бенчмарк LLM."
+}
+
+$ python scripts/demo.py --project workspace/verification --phase finish
+{
+  "mode": "offline_fixture",
+  "live_model_used": false,
+  "phase": "finish",
+  "status": "awaiting_approval",
+  "steps_total": 6,
+  "api_cost_usd": 0.0,
+  "elapsed_seconds": 1.2674,
+  "source_count": 10,
+  "claim_count": 5,
+  "project": "workspace/verification",
+  "note": "Время только этого воспроизведения; не время исследования человеком и не live-бенчмарк LLM.",
+  "synthetic_activation_pp": 6.0
+}
+
+$ python -m strategy_agent status --project workspace/verification
+{
+  "status": "awaiting_approval",
+  "steps": 6,
+  "cost_usd": 0.0,
+  "budget_usd": 2.0,
+  "unknown_cost_requests": 0,
+  "question": "Выберите вариант после чтения artifacts/strategy.md: approve --option ID --note ... либо answer для правок.",
+  "updated_at": "2026-11-08T09:34:04+00:00",
+  "decision": null,
+  "pause_requested": false,
+  "unknown_requests": []
+}
+
+$ python examples/family-safety/reproduce.py
+{
+  "provenance": "synthetic",
+  "model_calls": 0,
+  "empirical_product_effect": false,
+  "activation": {
+    "control": 0.2,
+    "guided": 0.26,
+    "absolute_lift_pp": 6.0,
+    "relative_lift_percent": 30.0,
+    "difference_95_ci_pp_normal": [
+      2.320625,
+      9.679375
+    ],
+    "approximate_minimum_per_arm": 772
+  },
+  "economics": [
+    {
+      "scenario": "optimistic",
+      "margin_rub_month": 100.0,
+      "simple_ltv_rub": 2500.0,
+      "ltv_cac": 5.0,
+      "payback_months": 5.0
+    },
+    {
+      "scenario": "base",
+      "margin_rub_month": 80.0,
+      "simple_ltv_rub": 1000.0,
+      "ltv_cac": 1.428571,
+      "payback_months": 8.75
+    },
+    {
+      "scenario": "pessimistic",
+      "margin_rub_month": 50.0,
+      "simple_ltv_rub": 416.666667,
+      "ltv_cac": 0.462963,
+      "payback_months": 18.0
+    }
+  ],
+  "standalone_max_variable_cost_for_ltv_eq_cac": 93.0,
+  "pilot_break_even_extra_families_assumed": 1500.0,
+  "pilot_break_even_extra_families_revised_assumed": 9000.0,
+  "limitations": [
+    "No observed customer outcomes",
+    "No discounting, tax or fixed costs in simple LTV",
+    "Normal approximation for difference; one predeclared primary metric"
+  ]
+}
+
+$ python scripts/demo.py --project workspace/verification --phase revise
+{
+  "mode": "offline_fixture",
+  "revision": {
+    "id": "C-economics",
+    "reason": "R08: синтетическое изменение годовой дополнительной маржи 600 → 100 RUB; прежнее допущение больше не применяется.",
+    "at": "2026-11-08T09:34:06.237281+00:00",
+    "affected_claims": [
+      "C-pilot"
+    ],
+    "action": "Пересмотреть решения, ссылающиеся на эти основания; прежний отчёт остаётся историческим черновиком."
+  },
+  "updated_recommendation": "status_quo",
+  "break_even_families": 9000,
+  "state": "awaiting_approval",
+  "note": "Новые данные загружены, экономика пересчитана, две стратегии обновлены. Исходный черновик сохранён; новое решение человека не имитируется."
+}

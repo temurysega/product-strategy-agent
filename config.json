@@ -1,0 +1,9 @@
+{
+  "primary_model": "google/gemini-2.5-flash",
+  "review_model": "anthropic/claude-sonnet-4.5",
+  "max_output_tokens": 5000,
+  "default_budget_usd": 2.0,
+  "max_steps_per_run": 12,
+  "max_context_characters": 100000,
+  "cost_policy": "Останавливать новые запросы, если цена или итоговый расход неизвестны; сверять неизвестный расход вручную по OpenRouter Activity."
+}

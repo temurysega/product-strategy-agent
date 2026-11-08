@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+build/
+dist/
+workspace/
+.coverage
+.pytest_cache/
+.DS_Store
+*.log
+node_modules/

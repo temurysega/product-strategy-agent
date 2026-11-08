@@ -1,0 +1,44 @@
+[
+  {
+    "kind": "forecast",
+    "currency": "RUB",
+    "period": "year",
+    "scenarios": [
+      {
+        "name": "prior incremental assumption; synthetic",
+        "inputs": {
+          "name": "prior incremental assumption; synthetic",
+          "users": 1500,
+          "conversion_rate": 1,
+          "price": 600,
+          "variable_cost_per_user": 0,
+          "fixed_cost": 900000
+        },
+        "revenue": 900000.0,
+        "costs": 900000.0,
+        "contribution": 0.0,
+        "break_even_users": 1500
+      },
+      {
+        "name": "revised incremental assumption; synthetic",
+        "inputs": {
+          "name": "revised incremental assumption; synthetic",
+          "users": 1500,
+          "conversion_rate": 1,
+          "price": 100,
+          "variable_cost_per_user": 0,
+          "fixed_cost": 900000
+        },
+        "revenue": 150000.0,
+        "costs": 900000.0,
+        "contribution": -750000.0,
+        "break_even_users": 9000
+      }
+    ],
+    "formula": "revenue=users*conversion_rate*price; costs=users*variable_cost_per_user+fixed_cost",
+    "limitations": [
+      "Входные числа — сценарные допущения, пока не привязаны к источникам.",
+      "Цена и затраты должны относиться к одному периоду. Налоги, CAC и стоимость капитала включите во входные затраты при необходимости."
+    ]
+  }
+]

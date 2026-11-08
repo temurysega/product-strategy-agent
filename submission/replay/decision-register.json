@@ -1,0 +1,30 @@
+{
+  "mode": "authored_reference",
+  "official_brief": false,
+  "human_approval_recorded": false,
+  "decisions": [
+    {
+      "id": "D01",
+      "status": "proposed",
+      "title": "Проверить понятное семейное подключение",
+      "option": "B",
+      "owner_role": "руководитель продукта",
+      "owner_person": null,
+      "basis": ["F01", "F02", "F03", "H01", "A-ECON-01"],
+      "rejected_options": {"A": "Резерв при отсутствии права интеграции", "C": "Нет обоснованной дифференциации и спроса", "D": "Выбрать при отрицательной экономике или невозможности интеграции"},
+      "assumptions": {"A-ECON-01": {"annual_extra_margin_rub": 600, "provenance": "synthetic", "status": "unverified"}},
+      "budget_limit_rub": 900000,
+      "first_gate_limit_rub": 160000,
+      "metrics": ["осознанная активация семейной пары", "понимание доступа", "жалобы и отмены", "дополнительная маржа"],
+      "revisit_triggers": ["Нет права интеграции", "Критическое заблуждение о защите", "Жалобы/отмены выросли более чем на 2 п.п.", "Поддержка выросла более чем на 25%", "Дополнительная маржа отрицательна", "Источник основания отозван"],
+      "next_review": "После интервью и до запуска A/B; затем после 28 дней плюс 7 дней дозревания",
+      "commitments": [
+        {"id": "T01", "owner_role": "владелец платформы", "deliverable": "Подтвердить право интеграции и границы доступа", "due": "До расходования бюджета пилота", "status": "unassigned"},
+        {"id": "T02", "owner_role": "исследователь", "deliverable": "Проверить понимание и отказ на 6–8 парах с согласием", "due": "До решения о реализации", "status": "unassigned"},
+        {"id": "T03", "owner_role": "аналитик", "deliverable": "Зафиксировать события, знаменатель, SRM и окно наблюдения", "due": "До первой рандомизации", "status": "unassigned"},
+        {"id": "T04", "owner_role": "руководитель поддержки", "deliverable": "Подтвердить стоимость дополнительных обращений", "due": "До масштабирования", "status": "unassigned"}
+      ]
+    }
+  ],
+  "revision_fixture": {"trigger_source": "R08", "affected": ["A-ECON-01", "C-BREAK-EVEN", "D01"], "proposed_status": "needs_review", "new_annual_extra_margin_rub": 100, "requires_human_decision": true}
+}

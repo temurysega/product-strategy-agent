@@ -1,0 +1,2 @@
+# Only needed for extracting the text layer of PDFs.
+pypdf>=5,<7

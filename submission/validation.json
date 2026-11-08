@@ -1,0 +1,166 @@
+{
+  "generated_at": "2026-11-08T09:34:06.694978+00:00",
+  "python": "3.12.10",
+  "platform": "win32",
+  "tests": {
+    "run": 64,
+    "passed": 63,
+    "skipped": [
+      {
+        "test": "test_symlink_outside_materials_blocked (test_tools.ToolTests.test_symlink_outside_materials_blocked)",
+        "reason": "OS does not permit symlinks"
+      }
+    ],
+    "failures": 0,
+    "errors": 0
+  },
+  "checks": [
+    {
+      "command": "python -m strategy_agent doctor",
+      "exit_code": 0,
+      "output": {
+        "python": "3.12.10",
+        "python_supported": true,
+        "openrouter_key_configured": false,
+        "models": [
+          "google/gemini-2.5-flash",
+          "anthropic/claude-sonnet-4.5"
+        ],
+        "network_checked": false,
+        "live_generation_tested": false,
+        "project_template": ".",
+        "dependencies": "stdlib; optional pypdf for PDF"
+      }
+    },
+    {
+      "command": "python scripts/demo.py --project workspace/verification --phase pause",
+      "exit_code": 0,
+      "output": {
+        "mode": "offline_fixture",
+        "live_model_used": false,
+        "phase": "pause",
+        "status": "paused",
+        "steps_total": 2,
+        "api_cost_usd": 0.0,
+        "elapsed_seconds": 1.2203,
+        "source_count": 10,
+        "claim_count": 0,
+        "project": "workspace/verification",
+        "note": "Время только этого воспроизведения; не время исследования человеком и не live-бенчмарк LLM."
+      }
+    },
+    {
+      "command": "python scripts/demo.py --project workspace/verification --phase finish",
+      "exit_code": 0,
+      "output": {
+        "mode": "offline_fixture",
+        "live_model_used": false,
+        "phase": "finish",
+        "status": "awaiting_approval",
+        "steps_total": 6,
+        "api_cost_usd": 0.0,
+        "elapsed_seconds": 1.2674,
+        "source_count": 10,
+        "claim_count": 5,
+        "project": "workspace/verification",
+        "note": "Время только этого воспроизведения; не время исследования человеком и не live-бенчмарк LLM.",
+        "synthetic_activation_pp": 6.0
+      }
+    },
+    {
+      "command": "python -m strategy_agent status --project workspace/verification",
+      "exit_code": 0,
+      "output": {
+        "status": "awaiting_approval",
+        "steps": 6,
+        "cost_usd": 0.0,
+        "budget_usd": 2.0,
+        "unknown_cost_requests": 0,
+        "question": "Выберите вариант после чтения artifacts/strategy.md: approve --option ID --note ... либо answer для правок.",
+        "updated_at": "2026-11-08T09:34:04+00:00",
+        "decision": null,
+        "pause_requested": false,
+        "unknown_requests": []
+      }
+    },
+    {
+      "command": "python examples/family-safety/reproduce.py",
+      "exit_code": 0,
+      "output": {
+        "provenance": "synthetic",
+        "model_calls": 0,
+        "empirical_product_effect": false,
+        "activation": {
+          "control": 0.2,
+          "guided": 0.26,
+          "absolute_lift_pp": 6.0,
+          "relative_lift_percent": 30.0,
+          "difference_95_ci_pp_normal": [
+            2.320625,
+            9.679375
+          ],
+          "approximate_minimum_per_arm": 772
+        },
+        "economics": [
+          {
+            "scenario": "optimistic",
+            "margin_rub_month": 100.0,
+            "simple_ltv_rub": 2500.0,
+            "ltv_cac": 5.0,
+            "payback_months": 5.0
+          },
+          {
+            "scenario": "base",
+            "margin_rub_month": 80.0,
+            "simple_ltv_rub": 1000.0,
+            "ltv_cac": 1.428571,
+            "payback_months": 8.75
+          },
+          {
+            "scenario": "pessimistic",
+            "margin_rub_month": 50.0,
+            "simple_ltv_rub": 416.666667,
+            "ltv_cac": 0.462963,
+            "payback_months": 18.0
+          }
+        ],
+        "standalone_max_variable_cost_for_ltv_eq_cac": 93.0,
+        "pilot_break_even_extra_families_assumed": 1500.0,
+        "pilot_break_even_extra_families_revised_assumed": 9000.0,
+        "limitations": [
+          "No observed customer outcomes",
+          "No discounting, tax or fixed costs in simple LTV",
+          "Normal approximation for difference; one predeclared primary metric"
+        ]
+      }
+    },
+    {
+      "command": "python scripts/demo.py --project workspace/verification --phase revise",
+      "exit_code": 0,
+      "output": {
+        "mode": "offline_fixture",
+        "revision": {
+          "id": "C-economics",
+          "reason": "R08: синтетическое изменение годовой дополнительной маржи 600 → 100 RUB; прежнее допущение больше не применяется.",
+          "at": "2026-11-08T09:34:06.237281+00:00",
+          "affected_claims": [
+            "C-pilot"
+          ],
+          "action": "Пересмотреть решения, ссылающиеся на эти основания; прежний отчёт остаётся историческим черновиком."
+        },
+        "updated_recommendation": "status_quo",
+        "break_even_families": 9000,
+        "state": "awaiting_approval",
+        "note": "Новые данные загружены, экономика пересчитана, две стратегии обновлены. Исходный черновик сохранён; новое решение человека не имитируется."
+      }
+    }
+  ],
+  "elapsed_seconds": 10.274,
+  "live_openrouter_generation_tested": false,
+  "official_brief_used": false,
+  "human_baseline_measured": false,
+  "api_cost_usd_for_this_verification": 0,
+  "development_and_human_cost": "not measured; not included in zero API cost",
+  "independent_skill_review": "See docs/FORWARD_TEST.md when present",
+  "note": "Только реальные результаты локальных проверок. Демо — фиксированный сценарий без LLM; это не измерение эффективности продукта или качества live-модели."
+}

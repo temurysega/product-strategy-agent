@@ -1,0 +1,4 @@
+scenario,period,price_rub,variable_cost_rub,monthly_churn,cac_rub,fixed_cost_rub
+optimistic,month,149,49,0.04,500,900000
+base,month,149,69,0.08,700,900000
+pessimistic,month,149,99,0.12,900,900000

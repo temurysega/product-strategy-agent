@@ -1,0 +1,12 @@
+{
+  "status": "not_measured",
+  "brief": null,
+  "dataset_sha256": null,
+  "date": null,
+  "runs": [
+    {"mode": "plain_chat", "model": null, "seconds": null, "api_usd": null, "human_minutes": null, "traceable_claims": null, "total_claims": null, "unsupported_promises": null},
+    {"mode": "agent", "model": null, "seconds": null, "api_usd": null, "human_minutes": null, "traceable_claims": null, "total_claims": null, "unsupported_promises": null},
+    {"mode": "human", "model": null, "seconds": null, "api_usd": null, "human_minutes": null, "traceable_claims": null, "total_claims": null, "unsupported_promises": null}
+  ],
+  "note": "Шаблон протокола, не результаты эксперимента. Заполнять только по реально выполненным сопоставимым прогонам."
+}

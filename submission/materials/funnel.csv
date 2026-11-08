@@ -1,0 +1,7 @@
+variant,period,stage,completed,eligible,unit
+control,2026-10,invite_delivered,900,1000,families
+control,2026-10,consent_accepted,300,900,families
+control,2026-10,check_completed,200,300,families
+guided,2026-10,invite_delivered,910,1000,families
+guided,2026-10,consent_accepted,390,910,families
+guided,2026-10,check_completed,260,390,families

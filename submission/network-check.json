@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-11-08T09:32:34.985324+00:00",
+  "url": "https://www.cbr.ru/analytics/ib/operations_survey/2025/",
+  "success": true,
+  "api_cost_usd": 0,
+  "source": {
+    "sha256": "a716918e2271df0a512e8de4dfc3ad60ee6e578d5e631dd8242567c45296950a",
+    "locator": "https://www.cbr.ru/analytics/ib/operations_survey/2025/",
+    "origin_url": "https://www.cbr.ru/analytics/ib/operations_survey/2025/",
+    "mime": "text/html",
+    "warnings": [],
+    "title": "Bank of Russia: 2025 survey",
+    "provenance": "public",
+    "origin_fetched": true,
+    "id": "S-c7c3c6e0de",
+    "ingested_at": "2026-11-08T09:32:34.980710+00:00",
+    "status": "active",
+    "trust": "untrusted_data",
+    "replaces": []
+  },
+  "error": null
+}

@@ -1,0 +1,47 @@
+{
+  "provenance": "synthetic",
+  "model_calls": 0,
+  "empirical_product_effect": false,
+  "activation": {
+    "control": 0.2,
+    "guided": 0.26,
+    "absolute_lift_pp": 6.0,
+    "relative_lift_percent": 30.0,
+    "difference_95_ci_pp_normal": [
+      2.320625,
+      9.679375
+    ],
+    "approximate_minimum_per_arm": 772
+  },
+  "economics": [
+    {
+      "scenario": "optimistic",
+      "margin_rub_month": 100.0,
+      "simple_ltv_rub": 2500.0,
+      "ltv_cac": 5.0,
+      "payback_months": 5.0
+    },
+    {
+      "scenario": "base",
+      "margin_rub_month": 80.0,
+      "simple_ltv_rub": 1000.0,
+      "ltv_cac": 1.428571,
+      "payback_months": 8.75
+    },
+    {
+      "scenario": "pessimistic",
+      "margin_rub_month": 50.0,
+      "simple_ltv_rub": 416.666667,
+      "ltv_cac": 0.462963,
+      "payback_months": 18.0
+    }
+  ],
+  "standalone_max_variable_cost_for_ltv_eq_cac": 93.0,
+  "pilot_break_even_extra_families_assumed": 1500.0,
+  "pilot_break_even_extra_families_revised_assumed": 9000.0,
+  "limitations": [
+    "No observed customer outcomes",
+    "No discounting, tax or fixed costs in simple LTV",
+    "Normal approximation for difference; one predeclared primary metric"
+  ]
+}
