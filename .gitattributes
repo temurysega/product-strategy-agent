@@ -3,5 +3,5 @@
 *.pdf binary
 *.zip binary
 # Preserve exact evidence bytes: audit SHA-256 values include original line endings.
-submission/live/** -text
-submission/benchmark/** -text
+submission/live/** -text whitespace=cr-at-eol
+submission/benchmark/** -text whitespace=cr-at-eol
