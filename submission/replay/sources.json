@@ -10,7 +10,7 @@
     "provenance": "public",
     "origin_fetched": false,
     "id": "S-R01",
-    "ingested_at": "2026-11-08T09:34:02.176723+00:00",
+    "ingested_at": "2026-11-08T14:53:40.775665+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -26,7 +26,7 @@
     "provenance": "public",
     "origin_fetched": false,
     "id": "S-R02",
-    "ingested_at": "2026-11-08T09:34:02.264949+00:00",
+    "ingested_at": "2026-11-08T14:53:40.868868+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -42,7 +42,7 @@
     "provenance": "public",
     "origin_fetched": false,
     "id": "S-R03",
-    "ingested_at": "2026-11-08T09:34:02.355272+00:00",
+    "ingested_at": "2026-11-08T14:53:40.966576+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -58,7 +58,7 @@
     "provenance": "public",
     "origin_fetched": false,
     "id": "S-R04",
-    "ingested_at": "2026-11-08T09:34:02.452685+00:00",
+    "ingested_at": "2026-11-08T14:53:41.059347+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -74,7 +74,7 @@
     "provenance": "owned",
     "origin_fetched": false,
     "id": "S-R05",
-    "ingested_at": "2026-11-08T09:34:02.550603+00:00",
+    "ingested_at": "2026-11-08T14:53:41.159772+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -90,7 +90,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R06",
-    "ingested_at": "2026-11-08T09:34:02.655319+00:00",
+    "ingested_at": "2026-11-08T14:53:41.259149+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -106,7 +106,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R07",
-    "ingested_at": "2026-11-08T09:34:02.748995+00:00",
+    "ingested_at": "2026-11-08T14:53:41.366711+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -122,7 +122,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R09",
-    "ingested_at": "2026-11-08T09:34:02.845589+00:00",
+    "ingested_at": "2026-11-08T14:53:41.460207+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -138,7 +138,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R10",
-    "ingested_at": "2026-11-08T09:34:02.919853+00:00",
+    "ingested_at": "2026-11-08T14:53:41.549938+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -154,7 +154,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R11",
-    "ingested_at": "2026-11-08T09:34:02.988609+00:00",
+    "ingested_at": "2026-11-08T14:53:41.627660+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []
@@ -170,7 +170,7 @@
     "provenance": "synthetic",
     "origin_fetched": false,
     "id": "S-R08",
-    "ingested_at": "2026-11-08T09:34:06.024023+00:00",
+    "ingested_at": "2026-11-08T14:53:44.250328+00:00",
     "status": "active",
     "trust": "untrusted_data",
     "replaces": []

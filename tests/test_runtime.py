@@ -1,4 +1,5 @@
 import json
+import os
 import tempfile
 import unittest
 from pathlib import Path
@@ -60,6 +61,10 @@ def strategy():
 
 class RuntimeTests(unittest.TestCase):
     def setUp(self):
+        # Offline runtime tests must not read developer credentials or inherit routes.
+        self.enterContext(patch("strategy_agent.cli.load_env"))
+        self.enterContext(patch.dict(os.environ, {name: "" for name in (
+            "OPENROUTER_MODEL", "OPENROUTER_REVIEW_MODEL", "OPENROUTER_RESPONDENT_MODEL", "OPENROUTER_ANALYST_MODEL")}))
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.project = Project(self.temp.name)
@@ -150,6 +155,82 @@ class RuntimeTests(unittest.TestCase):
         self.assertFalse(result["evidence"])
         self.assertEqual(result["provenance"], "synthetic")
 
+    def test_optional_ensemble_routes_make_distinct_metered_calls(self):
+        routes = {"critic": "fixture/reviewer", "interview_simulator": "fixture/respondent",
+                  "analyst": "fixture/analyst", "ux_reviewer": "fixture/analyst"}
+        responses = []
+        for role in routes:
+            responses.extend([response("consult_specialist", {"role": role, "question": "Проверь", "context": "Наблюдения"}, identifier=role),
+                              response(content="Аналитическая гипотеза", cost=0.02)])
+        with patch.dict(os.environ, {"OPENROUTER_MODEL": "fixture/orchestrator", "OPENROUTER_REVIEW_MODEL": routes["critic"],
+                                     "OPENROUTER_RESPONDENT_MODEL": routes["interview_simulator"], "OPENROUTER_ANALYST_MODEL": routes["analyst"]}):
+            engine, provider = self.engine(responses)
+            state = engine.run(max_steps=4)
+        self.assertEqual(state["model_errors"], 0)
+        self.assertEqual([call["model"] for call in provider.calls[::2]], ["fixture/orchestrator"] * 4)
+        self.assertEqual([call["model"] for call in provider.calls[1::2]], list(routes.values()))
+        self.assertTrue(all(not call["tools"] for call in provider.calls[1::2]))
+        self.assertEqual([entry["purpose"] for entry in state["ledger"][1::2]], ["specialist:" + role for role in routes])
+        self.assertAlmostEqual(state["total_cost_usd"], 0.12)
+        self.assertIn("Аналитик данных и проверки гипотез", provider.calls[5]["messages"][0]["content"])
+        self.assertEqual(len(list((self.project.path / "artifacts").glob("specialist-*.json"))), 4)
+
+    def test_optional_routes_fall_back_and_environment_overrides_config(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            config = {"primary_model": "fixture/primary", "review_model": "fixture/review"}
+            (root / "config.json").write_text(json.dumps(config), encoding="utf-8")
+            with patch("strategy_agent.runtime.ROOT", root):
+                engine, _ = self.engine([])
+                self.assertEqual(engine.respondent_model, "fixture/primary")
+                self.assertEqual(engine.analyst_model, "fixture/primary")
+                config.update(respondent_model="fixture/config-respondent", analyst_model="fixture/config-analyst")
+                (root / "config.json").write_text(json.dumps(config), encoding="utf-8")
+                engine, _ = self.engine([])
+                self.assertEqual(engine.respondent_model, "fixture/config-respondent")
+                self.assertEqual(engine.analyst_model, "fixture/config-analyst")
+                with patch.dict(os.environ, {"OPENROUTER_RESPONDENT_MODEL": "fixture/env-respondent", "OPENROUTER_ANALYST_MODEL": "fixture/env-analyst"}):
+                    engine, _ = self.engine([])
+                self.assertEqual(engine.respondent_model, "fixture/env-respondent")
+                self.assertEqual(engine.analyst_model, "fixture/env-analyst")
+
+    def test_provider_reported_model_is_saved_with_requested_route(self):
+        planned = response("consult_specialist", {"role": "interview_simulator", "question": "Почему?", "context": "Персона"})
+        planned["model"] = "provider/planner-version"
+        specialist = response(content="СИНТЕТИЧЕСКИЙ ОТВЕТ: гипотеза", cost=0.03)
+        specialist["model"] = "provider/respondent-version"
+        engine, _ = self.engine([planned, specialist])
+        state = engine.run(max_steps=1)
+        self.assertEqual([entry["model"] for entry in state["ledger"]], ["provider/planner-version", "provider/respondent-version"])
+        self.assertEqual([entry["requested_model"] for entry in state["ledger"]], [engine.primary_model, engine.respondent_model])
+        self.assertTrue(all(entry["model_source"] == "provider" for entry in state["ledger"]))
+        result = json.loads(next((self.project.path / "artifacts").glob("specialist-*.json")).read_text(encoding="utf-8"))
+        self.assertEqual(result["model"], "provider/respondent-version")
+        self.assertEqual(result["requested_model"], engine.respondent_model)
+        self.assertEqual(result["model_source"], "provider")
+        self.assertEqual(result["provider_id"], "generation-1")
+        self.assertAlmostEqual(state["total_cost_usd"], 0.04)
+
+    def test_missing_provider_model_is_explicit_requested_fallback(self):
+        engine, _ = self.engine([response("consult_specialist", {"role": "critic", "question": "Проверь", "context": "Черновик"}),
+                                 response(content="Проверить источник")])
+        state = engine.run(max_steps=1)
+        for entry in state["ledger"]:
+            self.assertEqual(entry["model"], entry["requested_model"])
+            self.assertEqual(entry["model_source"], "requested_fallback")
+        result = json.loads(next((self.project.path / "artifacts").glob("specialist-*.json")).read_text(encoding="utf-8"))
+        self.assertEqual(result["model"], engine.review_model)
+        self.assertEqual(result["model_source"], "requested_fallback")
+
+    def test_ensemble_specialist_obeys_remaining_shared_budget(self):
+        engine, provider = self.engine([response("consult_specialist", {"role": "analyst", "question": "Проверь", "context": "Данные"}, cost=0.02)], reserve=0.02)
+        state = engine.run(max_steps=1, budget=0.03)
+        self.assertEqual(state["status"], "paused")
+        self.assertEqual(len(provider.calls), 1)
+        self.assertEqual(state["total_cost_usd"], 0.02)
+        self.assertEqual(state["pending"]["calls"][0]["status"], "pending")
+        self.assertFalse(list((self.project.path / "artifacts").glob("specialist-*.json")))
+
     def test_business_choice_requires_human_and_records_commitment(self):
         engine, provider = self.engine([response("submit_strategy", strategy())])
         self.assertEqual(engine.run(max_steps=1)["status"], "awaiting_approval")
@@ -192,6 +273,63 @@ class RuntimeTests(unittest.TestCase):
         self.assertEqual(state["status"], "awaiting_approval")
         self.assertEqual(provider.calls[-1]["model"], engine.review_model)
         self.assertEqual(state["model_errors"], 2)
+
+    def test_successful_batch_returns_to_primary_and_error_events_are_accurate(self):
+        class MixedTools(FakeToolbox):
+            def execute(self, name, args):
+                return {"error": "Invalid request"} if name == "bad" else {"status": "ok"}
+        batched = response("bad", identifier="error-one")
+        for name, identifier in (("bad", "error-two"), ("analyze", "same-batch-success")):
+            batched["choices"][0]["message"]["tool_calls"].extend(response(name, identifier=identifier)["choices"][0]["message"]["tool_calls"])
+        engine, provider = self.engine([batched, response("analyze", identifier="correction"), response("submit_strategy", strategy(), identifier="draft")])
+        engine.toolbox = MixedTools()
+        state = engine.run(max_steps=3)
+        self.assertEqual(state["status"], "awaiting_approval")
+        self.assertEqual([call["model"] for call in provider.calls], [engine.primary_model, engine.review_model, engine.primary_model])
+        self.assertEqual(state["model_errors"], 2)
+        self.assertEqual(state["routing_error_streak"], 0)
+        events = [json.loads(line) for line in (self.project.path / "state/events.jsonl").read_text(encoding="utf-8").splitlines()]
+        outcomes = [event["details"]["status"] for event in events if event["event"] == "after_tool"]
+        self.assertEqual(outcomes, ["error", "error", "ok", "ok", "awaiting_approval"])
+
+    def test_route_recovery_survives_resume_without_resetting_history(self):
+        class ErrorTools(FakeToolbox):
+            def execute(self, name, args):
+                return {"error": "Invalid request"}
+        engine, _ = self.engine([response("bad", identifier="one"), response("bad", identifier="two")])
+        engine.toolbox = ErrorTools()
+        state = engine.run(max_steps=2)
+        self.assertEqual(state["routing_error_streak"], 2)
+        engine, recovery_provider = self.engine([response("analyze", identifier="correction")])
+        state = engine.run(max_steps=1)
+        self.assertEqual(recovery_provider.calls[0]["model"], engine.review_model)
+        self.assertEqual(state["routing_error_streak"], 0)
+        self.assertEqual(state["model_errors"], 2)
+        engine, provider = self.engine([response("submit_strategy", strategy(), identifier="draft")])
+        state = engine.run(max_steps=1)
+        self.assertEqual(provider.calls[0]["model"], engine.primary_model)
+        self.assertEqual(state["model_errors"], 2)
+        self.assertEqual(len(self.tools.executed), 1)
+
+    def test_legacy_routing_uses_saved_outcomes_instead_of_total_errors(self):
+        class ErrorTools(FakeToolbox):
+            def execute(self, name, args):
+                return {"error": "Invalid request"}
+        engine, _ = self.engine([response("bad", identifier="one"), response("bad", identifier="two")])
+        engine.toolbox = ErrorTools()
+        state = engine.run(max_steps=2)
+        state.pop("routing_error_streak")
+        self.project.save(state)
+        engine, provider = self.engine([response("analyze", identifier="correction")])
+        state = engine.run(max_steps=1)
+        self.assertEqual(provider.calls[0]["model"], engine.review_model)
+        state.pop("routing_error_streak")
+        self.project.save(state)
+        engine, provider = self.engine([response("submit_strategy", strategy(), identifier="draft")])
+        state = engine.run(max_steps=1)
+        self.assertEqual(provider.calls[0]["model"], engine.primary_model)
+        self.assertEqual(state["model_errors"], 2)
+        self.assertEqual(state["routing_error_streak"], 0)
 
     def test_review_reopens_changed_or_due_decision(self):
         self.project.write("artifacts/claims.json", [{"id": "C1", "status": "active", "kind": "fact"}])
@@ -293,6 +431,63 @@ class RuntimeTests(unittest.TestCase):
         result = json.loads(artifact.read_text(encoding="utf-8"))
         self.assertEqual(result["prompt_file"], "prompts/reviewer.md")
         self.assertEqual(len(result["prompt_sha256"]), 64)
+
+    def test_critic_receives_exact_primary_passage_beside_wrong_summary(self):
+        from strategy_agent.tools import Toolbox
+        passage = "В 2025 году показатель составил 31,2 против 6,4 в 2024 году."
+        (self.project.path / "materials/year.txt").write_text("Первичный протокол\n" + passage + "\nКонец", encoding="utf-8")
+        box = Toolbox(self.project.path)
+        self.assertNotIn("error", box.execute("ingest_document", {"path": "materials/year.txt", "provenance": "owned", "source_id": "S1"}))
+        # Legacy checkpoint from before the year guard: the critic must still
+        # receive primary text for an incorrect claim already in the registry.
+        self.project.write("artifacts/claims.json", [{"text": "В 2024 году 31,2 против 6,4 в 2023 году.", "kind": "fact",
+                            "source_ids": ["S1"], "locator": "line:2", "id": "C1", "status": "active"}])
+        engine, provider = self.engine([response("consult_specialist", {"role": "critic", "question": "Проверь C1", "context": "В 2024 году рост против 2023 года."}),
+                                       response(content="C1: годы не совпадают с S1 line:2.")])
+        state = engine.run(max_steps=1)
+        self.assertEqual(state["model_errors"], 0)
+        self.assertIn(passage, provider.calls[1]["messages"][1]["content"])
+        self.assertIn("В 2024 году рост против 2023 года.", provider.calls[1]["messages"][1]["content"])
+        self.assertIn("untrusted_data", provider.calls[1]["messages"][1]["content"])
+        artifact = json.loads(next((self.project.path / "artifacts").glob("specialist-*.json")).read_text(encoding="utf-8"))
+        fact = artifact["evidence_context"]["facts"][0]
+        self.assertEqual(fact["claim_id"], "C1")
+        self.assertEqual(fact["sources"][0]["passage"], passage)
+        self.assertEqual(fact["sources"][0]["passage_locator"], "line:2-2")
+        self.assertEqual(fact["sources"][0]["source_locator"], "materials/year.txt")
+        self.assertEqual(len(artifact["evidence_context_sha256"]), 64)
+
+    def test_critic_evidence_is_bounded_and_prioritizes_referenced_current_facts(self):
+        self.project.write("artifacts/sources.json", [{"id": "S1", "content": "Первичный фрагмент " * 500,
+                           "locator": "materials/long.txt", "status": "active", "provenance": "owned"}])
+        claims = [{"id": "C" + str(index), "text": "Утверждение " * 200, "kind": "fact", "status": "active",
+                   "source_ids": ["S1"], "locator": "line:1"} for index in range(12)]
+        claims.extend([{**claims[0], "id": "C-stale", "status": "stale"}, {**claims[0], "id": "C-hypothesis", "kind": "hypothesis"}])
+        self.project.write("artifacts/claims.json", claims)
+        engine, _ = self.engine([])
+        packet = engine._critic_evidence("Проверь C0")
+        self.assertEqual(packet["facts"][0]["claim_id"], "C0")
+        self.assertEqual(len(packet["facts"]), 8)
+        self.assertEqual(packet["facts_total"], 12)
+        self.assertEqual(packet["facts_omitted"], 4)
+        self.assertLessEqual(len(json.dumps(packet, ensure_ascii=False)), 8200)
+        self.assertTrue(all(fact["sources"][0]["passage_truncated"] for fact in packet["facts"]))
+        self.assertFalse({"C-stale", "C-hypothesis"} & {fact["claim_id"] for fact in packet["facts"]})
+
+    def test_critic_marks_missing_passages_and_preserves_quote_source_text(self):
+        self.project.write("artifacts/sources.json", [{"id": "S1", "content": "Заголовок\nТочный ФРАГМЕНТ за 2025 год.\nКонец",
+                           "locator": "materials/source.txt", "status": "active", "provenance": "owned"}])
+        self.project.write("artifacts/claims.json", [
+            {"id": "C-missing", "text": "Источник не сохранён", "kind": "fact", "status": "active", "source_ids": ["S-missing"], "locator": "line:1"},
+            {"id": "C-range", "text": "Неверный локатор", "kind": "fact", "status": "active", "source_ids": ["S1"], "locator": "line:99"},
+            {"id": "C-quote", "text": "Сохранённая цитата", "kind": "fact", "status": "active", "source_ids": ["S1"], "locator": "точный фрагмент"},
+        ])
+        engine, _ = self.engine([])
+        facts = {fact["claim_id"]: fact for fact in engine._critic_evidence("")["facts"]}
+        self.assertEqual(facts["C-missing"]["sources"][0]["unavailable"], "source_missing")
+        self.assertEqual(facts["C-range"]["sources"][0]["unavailable"], "locator_not_found")
+        self.assertEqual(facts["C-range"]["sources"][0]["passage"], "")
+        self.assertEqual(facts["C-quote"]["sources"][0]["passage"], "Точный ФРАГМЕНТ за 2025 год.")
 
 
 if __name__ == "__main__":

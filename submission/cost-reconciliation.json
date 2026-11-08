@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-08T14:53:28.093119+00:00",
+  "agent_usd": 1.83956842,
+  "baseline_usd": 0.0079652,
+  "recorded_total_usd": 1.84753362,
+  "openrouter_key_usage_usd": 1.84753362,
+  "difference_usd": 0.0,
+  "unknown_cost_requests": 0,
+  "development_and_operator_time_cost": "not measured",
+  "scope": "Read-only /api/v1/key usage reconciliation; secret and key/account identifiers omitted"
+}

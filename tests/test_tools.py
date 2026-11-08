@@ -11,6 +11,29 @@ from strategy_agent.tools import Toolbox
 
 
 class ToolTests(unittest.TestCase):
+    def test_economics_distinguishes_paying_from_invited_cost_base(self):
+        scenario = {"users": 10000, "conversion_rate": .2, "price": 149,
+                    "variable_cost_per_user": 69, "fixed_cost": 900000}
+        legacy = economics([scenario])["scenarios"][0]
+        paying = economics([{**scenario, "variable_cost_basis": "paying_users"}])["scenarios"][0]
+        self.assertEqual(legacy["contribution"], -1292000)
+        self.assertTrue(legacy["warnings"])
+        self.assertEqual(paying["variable_cost_users"], 2000)
+        self.assertEqual(paying["contribution"], -740000)
+        self.assertEqual(paying["break_even_users"], 56250)
+        self.assertEqual(paying["warnings"], [])
+        with self.assertRaises(ValueError):
+            economics([{**scenario, "variable_cost_basis": "activation"}])
+
+    def test_fact_period_must_exist_in_primary_text_not_model_title(self):
+        self.material("period.md", "Обзор за 2025 год. Рост относительно 2024 года — 6,4%.")
+        sid = self.box.execute("ingest_document", {"path": "materials/period.md", "provenance": "owned", "title": "Ошибочное название: 2024 против 2023"})["source"]["id"]
+        wrong = self.box.execute("record_claim", {"text": "За 2024 год рост относительно 2023", "kind": "fact", "source_ids": [sid], "locator": "line:1"})
+        self.assertIn("error", wrong)
+        self.assertIn("2023", wrong["message"])
+        correct = self.box.execute("record_claim", {"text": "За 2025 год рост относительно 2024", "kind": "fact", "source_ids": [sid], "locator": "line:1"})
+        self.assertNotIn("error", correct)
+
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.project = Path(self.temporary.name)

@@ -1,3 +1,23 @@
+test_accounting_recovers_from_raw_response_without_mutating_checkpoint (test_benchmark.BenchmarkTests.test_accounting_recovers_from_raw_response_without_mutating_checkpoint) ... ok
+test_agent_wall_time_is_explicit_measurement_not_sum_of_latencies (test_benchmark.BenchmarkTests.test_agent_wall_time_is_explicit_measurement_not_sum_of_latencies) ... ok
+test_budget_reservation_blocks_paid_call_and_records_failure (test_benchmark.BenchmarkTests.test_budget_reservation_blocks_paid_call_and_records_failure) ... ok
+test_compound_citations_are_detected_without_hiding_unregistered_aliases (test_benchmark.BenchmarkTests.test_compound_citations_are_detected_without_hiding_unregistered_aliases) ... ok
+test_existing_output_refuses_call_even_after_failure (test_benchmark.BenchmarkTests.test_existing_output_refuses_call_even_after_failure) ... ok
+test_invalid_json_and_unknown_cost_do_not_trigger_repair_call (test_benchmark.BenchmarkTests.test_invalid_json_and_unknown_cost_do_not_trigger_repair_call) ... ok
+test_invalid_schema_is_a_recorded_failure_without_retry (test_benchmark.BenchmarkTests.test_invalid_schema_is_a_recorded_failure_without_retry) ... ok
+test_later_source_registration_does_not_claim_raw_corpus_changed (test_benchmark.BenchmarkTests.test_later_source_registration_does_not_claim_raw_corpus_changed) ... ok
+test_offline_summary_requires_existing_checkpoint (test_benchmark.BenchmarkTests.test_offline_summary_requires_existing_checkpoint) ... ok
+test_one_call_same_raw_corpus_no_agent_answer_leakage (test_benchmark.BenchmarkTests.test_one_call_same_raw_corpus_no_agent_answer_leakage) ... ok
+test_rejects_nonfinite_budget_without_provider_call (test_benchmark.BenchmarkTests.test_rejects_nonfinite_budget_without_provider_call) ... ok
+test_response_persisted_before_parsing_and_offline_recovery (test_benchmark.BenchmarkTests.test_response_persisted_before_parsing_and_offline_recovery) ... ok
+test_structural_checks_do_not_claim_semantic_quality (test_benchmark.BenchmarkTests.test_structural_checks_do_not_claim_semantic_quality) ... ok
+test_summary_detects_changed_input_and_preserves_human_review (test_benchmark.BenchmarkTests.test_summary_detects_changed_input_and_preserves_human_review) ... ok
+test_summary_excludes_editorial_improvements_from_model_comparison (test_benchmark.BenchmarkTests.test_summary_excludes_editorial_improvements_from_model_comparison) ... ok
+test_checkpoint_preserves_archive_cost_and_evidence (test_context.ContextTests.test_checkpoint_preserves_archive_cost_and_evidence) ... ok
+test_multiple_compactions_keep_distinct_archives (test_context.ContextTests.test_multiple_compactions_keep_distinct_archives) ... ok
+test_repeated_checkpoint_does_not_embed_previous_summary (test_context.ContextTests.test_repeated_checkpoint_does_not_embed_previous_summary) ... ok
+test_settled_human_gate_keeps_queued_answer (test_context.ContextTests.test_settled_human_gate_keeps_queued_answer) ... ok
+test_unfinished_actions_cannot_be_compacted (test_context.ContextTests.test_unfinished_actions_cannot_be_compacted) ... ok
 test_batch_supported_and_initialize_not_batched (test_mcp.MCPTests.test_batch_supported_and_initialize_not_batched) ... ok
 test_handshake_discovery_and_call (test_mcp.MCPTests.test_handshake_discovery_and_call) ... ok
 test_human_question_survives_new_process (test_mcp.MCPTests.test_human_question_survives_new_process) ... ok
@@ -6,15 +26,18 @@ test_stdio_parse_failure_is_protocol_not_stdout_log (test_mcp.MCPTests.test_stdi
 test_tools_need_initialization (test_mcp.MCPTests.test_tools_need_initialization) ... ok
 test_unknown_tool_protocol_error_and_bad_arguments_tool_error (test_mcp.MCPTests.test_unknown_tool_protocol_error_and_bad_arguments_tool_error) ... ok
 test_authentication_error_is_not_unknown_billing (test_provider.ProviderTests.test_authentication_error_is_not_unknown_billing) ... ok
+test_completion_parameters_follow_reasoning_model_catalog (test_provider.ProviderTests.test_completion_parameters_follow_reasoning_model_catalog) ... ok
 test_env_does_not_execute_or_overwrite (test_provider.ProviderTests.test_env_does_not_execute_or_overwrite) ... ok
 test_http_errors_do_not_echo_secrets_or_retry (test_provider.ProviderTests.test_http_errors_do_not_echo_secrets_or_retry) ... ok
 test_http_timeout_is_unknown_billing (test_provider.ProviderTests.test_http_timeout_is_unknown_billing) ... ok
 test_incomplete_http_body_marks_charge_uncertain (test_provider.ProviderTests.test_incomplete_http_body_marks_charge_uncertain) ... ok
 test_invalid_cost_values_cannot_bypass_budget (test_provider.ProviderTests.test_invalid_cost_values_cannot_bypass_budget) ... ok
 test_long_context_tier_is_reserved (test_provider.ProviderTests.test_long_context_tier_is_reserved) ... ok
+test_model_without_output_cap_is_rejected_before_paid_request (test_provider.ProviderTests.test_model_without_output_cap_is_rejected_before_paid_request) ... ok
 test_payload_and_accounting_come_from_provider (test_provider.ProviderTests.test_payload_and_accounting_come_from_provider) ... ok
 test_public_catalog_never_sends_key (test_provider.ProviderTests.test_public_catalog_never_sends_key) ... ok
 test_reservation_uses_live_catalog_and_requires_tool_support (test_provider.ProviderTests.test_reservation_uses_live_catalog_and_requires_tool_support) ... ok
+test_uncached_completion_reads_public_capabilities_before_post (test_provider.ProviderTests.test_uncached_completion_reads_public_capabilities_before_post) ... ok
 test_ambiguous_network_error_is_not_retried (test_runtime.RuntimeTests.test_ambiguous_network_error_is_not_retried) ... ok
 test_budget_prevents_paid_call (test_runtime.RuntimeTests.test_budget_prevents_paid_call) ... ok
 test_business_choice_requires_human_and_records_commitment (test_runtime.RuntimeTests.test_business_choice_requires_human_and_records_commitment) ... {
@@ -24,10 +47,14 @@ test_business_choice_requires_human_and_records_commitment (test_runtime.Runtime
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": null,
-  "updated_at": "2026-11-08T09:33:57+00:00"
+  "updated_at": "2026-11-08T14:53:33+00:00"
 }
 ok
 test_checkpoint_resume_does_not_repeat_tools (test_runtime.RuntimeTests.test_checkpoint_resume_does_not_repeat_tools) ... ok
+test_critic_evidence_is_bounded_and_prioritizes_referenced_current_facts (test_runtime.RuntimeTests.test_critic_evidence_is_bounded_and_prioritizes_referenced_current_facts) ... ok
+test_critic_marks_missing_passages_and_preserves_quote_source_text (test_runtime.RuntimeTests.test_critic_marks_missing_passages_and_preserves_quote_source_text) ... ok
+test_critic_receives_exact_primary_passage_beside_wrong_summary (test_runtime.RuntimeTests.test_critic_receives_exact_primary_passage_beside_wrong_summary) ... ok
+test_ensemble_specialist_obeys_remaining_shared_budget (test_runtime.RuntimeTests.test_ensemble_specialist_obeys_remaining_shared_budget) ... ok
 test_human_answer_survives_pending_checkpoint (test_runtime.RuntimeTests.test_human_answer_survives_pending_checkpoint) ... {
   "status": "ready",
   "steps": 1,
@@ -35,7 +62,7 @@ test_human_answer_survives_pending_checkpoint (test_runtime.RuntimeTests.test_hu
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": null,
-  "updated_at": "2026-11-08T09:33:57+00:00"
+  "updated_at": "2026-11-08T14:53:34+00:00"
 }
 ok
 test_human_gate_cancels_batched_old_plan_and_preserves_reply (test_runtime.RuntimeTests.test_human_gate_cancels_batched_old_plan_and_preserves_reply) ... {
@@ -45,14 +72,19 @@ test_human_gate_cancels_batched_old_plan_and_preserves_reply (test_runtime.Runti
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": null,
-  "updated_at": "2026-11-08T09:33:57+00:00"
+  "updated_at": "2026-11-08T14:53:34+00:00"
 }
 ok
 test_interrupted_tool_is_not_replayed (test_runtime.RuntimeTests.test_interrupted_tool_is_not_replayed) ... ok
 test_invalid_alternatives_do_not_approve (test_runtime.RuntimeTests.test_invalid_alternatives_do_not_approve) ... ok
+test_legacy_routing_uses_saved_outcomes_instead_of_total_errors (test_runtime.RuntimeTests.test_legacy_routing_uses_saved_outcomes_instead_of_total_errors) ... ok
 test_malformed_specialist_output_is_paid_and_recoverable (test_runtime.RuntimeTests.test_malformed_specialist_output_is_paid_and_recoverable) ... ok
+test_missing_provider_model_is_explicit_requested_fallback (test_runtime.RuntimeTests.test_missing_provider_model_is_explicit_requested_fallback) ... ok
+test_optional_ensemble_routes_make_distinct_metered_calls (test_runtime.RuntimeTests.test_optional_ensemble_routes_make_distinct_metered_calls) ... ok
+test_optional_routes_fall_back_and_environment_overrides_config (test_runtime.RuntimeTests.test_optional_routes_fall_back_and_environment_overrides_config) ... ok
 test_paid_response_checkpoint_does_not_call_provider_again (test_runtime.RuntimeTests.test_paid_response_checkpoint_does_not_call_provider_again) ... ok
 test_project_can_be_moved_between_sessions (test_runtime.RuntimeTests.test_project_can_be_moved_between_sessions) ... ok
+test_provider_reported_model_is_saved_with_requested_route (test_runtime.RuntimeTests.test_provider_reported_model_is_saved_with_requested_route) ... ok
 test_read_method_whitelist_and_bounded_reference (test_runtime.RuntimeTests.test_read_method_whitelist_and_bounded_reference) ... ok
 test_real_toolbox_new_topic_from_material_to_decision (test_runtime.RuntimeTests.test_real_toolbox_new_topic_from_material_to_decision) ... ok
 test_returned_tool_error_routes_to_review_model (test_runtime.RuntimeTests.test_returned_tool_error_routes_to_review_model) ... ok
@@ -63,7 +95,7 @@ test_review_reopens_changed_or_due_decision (test_runtime.RuntimeTests.test_revi
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": null,
-  "updated_at": "2026-11-08T09:33:59+00:00"
+  "updated_at": "2026-11-08T14:53:37+00:00"
 }
 {
   "as_of": "2027-01-01",
@@ -79,8 +111,10 @@ test_review_reopens_changed_or_due_decision (test_runtime.RuntimeTests.test_revi
 }
 ok
 test_revoked_evidence_blocks_submission (test_runtime.RuntimeTests.test_revoked_evidence_blocks_submission) ... ok
+test_route_recovery_survives_resume_without_resetting_history (test_runtime.RuntimeTests.test_route_recovery_survives_resume_without_resetting_history) ... ok
 test_specialist_is_real_second_provider_call_and_metered (test_runtime.RuntimeTests.test_specialist_is_real_second_provider_call_and_metered) ... ok
 test_specialist_loads_repository_role_prompt (test_runtime.RuntimeTests.test_specialist_loads_repository_role_prompt) ... ok
+test_successful_batch_returns_to_primary_and_error_events_are_accurate (test_runtime.RuntimeTests.test_successful_batch_returns_to_primary_and_error_events_are_accurate) ... ok
 test_unknown_cost_blocks_tools_until_reconciled (test_runtime.RuntimeTests.test_unknown_cost_blocks_tools_until_reconciled) ... {
   "status": "ready",
   "steps": 1,
@@ -88,7 +122,7 @@ test_unknown_cost_blocks_tools_until_reconciled (test_runtime.RuntimeTests.test_
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": null,
-  "updated_at": "2026-11-08T09:34:00+00:00"
+  "updated_at": "2026-11-08T14:53:38+00:00"
 }
 ok
 test_changed_material_marks_previous_claim_stale (test_tools.ToolTests.test_changed_material_marks_previous_claim_stale) ... ok
@@ -98,7 +132,9 @@ test_csv_counts_not_average_of_rates (test_tools.ToolTests.test_csv_counts_not_a
 test_csv_missing_invalid_duplicate_rejected (test_tools.ToolTests.test_csv_missing_invalid_duplicate_rejected) ... ok
 test_csv_unit_mismatch_rejected (test_tools.ToolTests.test_csv_unit_mismatch_rejected) ... ok
 test_document_formats_and_transcript_timestamps (test_tools.ToolTests.test_document_formats_and_transcript_timestamps) ... ok
+test_economics_distinguishes_paying_from_invited_cost_base (test_tools.ToolTests.test_economics_distinguishes_paying_from_invited_cost_base) ... ok
 test_economics_units_and_sensitivity (test_tools.ToolTests.test_economics_units_and_sensitivity) ... ok
+test_fact_period_must_exist_in_primary_text_not_model_title (test_tools.ToolTests.test_fact_period_must_exist_in_primary_text_not_model_title) ... ok
 test_hypothesis_memory_cannot_be_laundered (test_tools.ToolTests.test_hypothesis_memory_cannot_be_laundered) ... ok
 test_idempotent_ingestion_and_locator (test_tools.ToolTests.test_idempotent_ingestion_and_locator) ... ok
 test_nonfinite_and_huge_arguments_are_rejected (test_tools.ToolTests.test_nonfinite_and_huge_arguments_are_rejected) ... ok
@@ -121,7 +157,7 @@ test_organic_count_growth_is_not_rate_growth (test_unseen.UnseenOnboardingToolTe
 test_prior_synthetic_answer_cannot_become_fact_after_new_session (test_unseen.UnseenOnboardingToolTests.test_prior_synthetic_answer_cannot_become_fact_after_new_session) ... ok
 
 ----------------------------------------------------------------------
-Ran 64 tests in 4.514s
+Ran 100 tests in 10.560s
 
 OK (skipped=1)
 
@@ -129,11 +165,19 @@ $ python -m strategy_agent doctor
 {
   "python": "3.12.10",
   "python_supported": true,
-  "openrouter_key_configured": false,
+  "openrouter_key_configured": true,
   "models": [
     "google/gemini-2.5-flash",
-    "anthropic/claude-sonnet-4.5"
+    "anthropic/claude-sonnet-4.5",
+    "qwen/qwen3-235b-a22b-2507",
+    "openai/gpt-5.1-codex-mini"
   ],
+  "model_routes": {
+    "orchestrator": "google/gemini-2.5-flash",
+    "critic": "anthropic/claude-sonnet-4.5",
+    "interview_simulator": "qwen/qwen3-235b-a22b-2507",
+    "analyst": "openai/gpt-5.1-codex-mini"
+  },
   "network_checked": false,
   "live_generation_tested": false,
   "project_template": ".",
@@ -148,7 +192,7 @@ $ python scripts/demo.py --project workspace/verification --phase pause
   "status": "paused",
   "steps_total": 2,
   "api_cost_usd": 0.0,
-  "elapsed_seconds": 1.2203,
+  "elapsed_seconds": 1.3137,
   "source_count": 10,
   "claim_count": 0,
   "project": "workspace/verification",
@@ -163,7 +207,7 @@ $ python scripts/demo.py --project workspace/verification --phase finish
   "status": "awaiting_approval",
   "steps_total": 6,
   "api_cost_usd": 0.0,
-  "elapsed_seconds": 1.2674,
+  "elapsed_seconds": 0.9742,
   "source_count": 10,
   "claim_count": 5,
   "project": "workspace/verification",
@@ -179,7 +223,7 @@ $ python -m strategy_agent status --project workspace/verification
   "budget_usd": 2.0,
   "unknown_cost_requests": 0,
   "question": "Выберите вариант после чтения artifacts/strategy.md: approve --option ID --note ... либо answer для правок.",
-  "updated_at": "2026-11-08T09:34:04+00:00",
+  "updated_at": "2026-11-08T14:53:43+00:00",
   "decision": null,
   "pause_requested": false,
   "unknown_requests": []
@@ -240,7 +284,7 @@ $ python scripts/demo.py --project workspace/verification --phase revise
   "revision": {
     "id": "C-economics",
     "reason": "R08: синтетическое изменение годовой дополнительной маржи 600 → 100 RUB; прежнее допущение больше не применяется.",
-    "at": "2026-11-08T09:34:06.237281+00:00",
+    "at": "2026-11-08T14:53:44.467424+00:00",
     "affected_claims": [
       "C-pilot"
     ],

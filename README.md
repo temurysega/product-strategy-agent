@@ -27,7 +27,9 @@ python -m unittest discover -s tests -v
 проверяет расчёты, источники, состояние и запрос решения; не доказывает качество модели.
 Новая папка обязательна: скрипт не стирает существующий проект.
 
-Готовое исследование: [демонстрационный проект](examples/family-safety/brief.md).
+Авторский пример: [демонстрационный проект](examples/family-safety/brief.md).
+Реальные модельные вызовы: [журнал и расходы](submission/live/summary.json),
+[происхождение доказательств](docs/LIVE_EVIDENCE.md), [содержательная проверка](docs/COMPARISON_REVIEW.md).
 Описание для подачи: [PDF](submission/description.pdf), [HTML](submission/description.html).
 Проверки: [validation.json](submission/validation.json).
 
@@ -54,13 +56,46 @@ python -m unittest discover -s tests -v
 
 ```bash
 python -m strategy_agent doctor --online
-python -m strategy_agent init --project workspace/live --brief examples/family-safety/brief.md --budget 2
-python scripts/prepare_project.py --project workspace/live --example examples/family-safety
-python -m strategy_agent run --project workspace/live --max-steps 30
+python scripts/live_demo.py prepare --project workspace/my-live --budget 1.5
+python scripts/live_demo.py run --project workspace/my-live --max-steps 12
+python scripts/live_demo.py export --project workspace/my-live --output workspace/my-live-export
 ```
 
-Модель сама выбирает инструменты, читает результаты, привлекает критика или модельного
-респондента при необходимости и сохраняет стратегию. Данные, прочитанные моделью, могут
+`prepare` копирует исходные материалы и создаёт условия учебного запуска; готовые стратегии
+из `examples/` в проект не подаются. Публичная часть корпуса — авторские конспекты открытых
+источников, интервью и таблицы явно учебные. `run` делает платные запросы. `export` сохраняет
+проверяемые результаты без новых запросов. Для собственной задачи используй `init --brief ...`
+и добавь разрешённые материалы в `materials/`. Оба сценария продолжаются командой `resume`.
+
+В сохранённом прогоне через OpenRouter реально использованы четыре модели:
+
+| Назначение | Модель в прогоне | Настройка |
+|---|---|---|
+| Планирование и инструменты | `google/gemini-2.5-flash` | `OPENROUTER_MODEL` |
+| Критик и исправление серии ошибок | `anthropic/claude-sonnet-4.5` | `OPENROUTER_REVIEW_MODEL` |
+| Синтетический респондент | `qwen/qwen3-235b-a22b-2507` | `OPENROUTER_RESPONDENT_MODEL` |
+| Анализ данных и дизайна проверки | `openai/gpt-5.1-codex-mini` | `OPENROUTER_ANALYST_MODEL` |
+
+В обычном CLI два последних маршрута необязательны: пустое значение использует основную
+модель. `live_demo.py` задаёт указанные четыре маршрута для повторения условий кейса.
+Настройка роли не означает её запуск: отдельные вызовы подтверждаются записями
+[ledger.json](submission/live/ledger.json). Модель Codex-mini в OpenRouter и среда разработки
+Codex — разные участники; точная модель среды разработки здесь не установлена.
+
+Модель выбирает инструменты, читает результаты, привлекает специалистов и сохраняет
+черновик. Критик автоматически получает ограниченную выборку фактов с точными фрагментами
+зарегистрированных источников. Проверка смысла всё равно нужна: в первом живом черновике
+сохранились неверные годы и подмена активации годовым удержанием. Операторские замечания,
+неудачные версии и последующие исправления сохранены; это сопровождаемый прогон.
+
+Последний ответ модели сохранён отдельно как
+[model-generated-final.md](submission/live/model-generated-final.md).
+Текущая [strategy.md](submission/live/strategy.md) дополнительно отредактирована оператором
+Codex без нового API-вызова; причины, хеши и разница записаны в
+[editorial-revision.json](submission/live/editorial-revision.json). Этот текст не является
+автономным результатом модели и не означает утверждение руководителем.
+
+Данные, прочитанные моделью, могут
 передаваться через OpenRouter: используй разрешённые материалы. Платные сервисы — только
 модели OpenRouter (или модель своей IDE); поиск внутри проекта и расчёты локальные.
 Тарифы не зашиты в код: перед запросом проверяется каталог, после него сохраняется `usage.cost`.
@@ -69,11 +104,11 @@ python -m strategy_agent run --project workspace/live --max-steps 30
 ## Управление и продолжение
 
 ```bash
-python -m strategy_agent pause --project workspace/live
-python -m strategy_agent status --project workspace/live
-python -m strategy_agent answer --project workspace/live --text "Не рассматриваем расширение штата поддержки"
-python -m strategy_agent resume --project workspace/live --max-steps 20
-python -m strategy_agent review --project workspace/live
+python -m strategy_agent pause --project workspace/my-live
+python -m strategy_agent status --project workspace/my-live
+python -m strategy_agent answer --project workspace/my-live --text "Не рассматриваем расширение штата поддержки"
+python -m strategy_agent resume --project workspace/my-live --max-steps 20
+python -m strategy_agent review --project workspace/my-live
 ```
 
 Пауза срабатывает перед следующим действием; уже отправленный запрос может завершиться.
@@ -87,7 +122,7 @@ python -m strategy_agent review --project workspace/live
 выбранный **существующий ID варианта** и обязательство проверки. Пример формы команды:
 
 ```bash
-python -m strategy_agent approve --project workspace/live --option pilot --note "Проверяем согласие до масштабирования" --owner "Руководитель продукта" --metric "Доля завершённых подключений" --threshold "Пересмотр при росте обращений в поддержку" --due 2026-12-01
+python -m strategy_agent approve --project workspace/my-live --option pilot --note "Проверяем согласие до масштабирования" --owner "Руководитель продукта" --metric "Доля завершённых подключений" --threshold "Пересмотр при росте обращений в поддержку" --due 2026-12-01
 ```
 
 Дата, владелец и порог в примере заменяются условиями своего проекта. Подтверждение
@@ -95,6 +130,29 @@ python -m strategy_agent approve --project workspace/live --option pilot --note 
 Для разбора прерванного вызова или неизвестной стоимости:
 `python -m strategy_agent resolve-tool --help` и `reconcile-cost --help`.
 Платный запрос с неопределённым результатом не повторяется автоматически.
+
+Если история достигла лимита контекста, после завершения ожидающих действий выполни
+`python -m strategy_agent compact --project workspace/my-live`, затем `resume`.
+Команда локально архивирует исходные сообщения и создаёт краткую контрольную точку.
+Расходы, ошибки и реестры сохраняются; в сводке часть выдержек обрезана и помечена.
+Архив позволяет проверить прежние действия, но сводка не становится первичным источником.
+
+## Сравнение с обычным чатом
+
+Один базовый ответ на том же исходном брифе и корпусе сохранён в
+[submission/benchmark/](submission/benchmark/comparison.json). Его подготовка использовала
+один платный вызов без инструментов. Он сравнивается с последним модельным ответом
+`model-generated-final.*`, до редакторской правки. У агента были несколько моделей, больший расход,
+методики и операторская помощь. Это один описанный случай, а не доказательство экономии
+или превосходства над чатом либо аналитиком.
+
+Сохранённый агентный прогон стоил $1.83956842 за 35 вызовов, базовый чат — $0.0079652;
+вместе $1.84753362. Разработка, подписка среды и время оператора в эти суммы не входят.
+
+Для нового сравнения `scripts/benchmark.py --project ПУТЬ --output НОВАЯ_ПАПКА --budget 0.25`
+выполняет один платный запрос. Повтор в существующую папку запрещён.
+Добавление `--summarize` пересчитывает отчёт по сохранённому ответу без оплаты.
+Условия, ограничения и вопросы проверки: [docs/EVALUATION.md](docs/EVALUATION.md).
 
 ## Что реализовано
 
@@ -104,11 +162,11 @@ python -m strategy_agent approve --project workspace/live --option pilot --note 
 | Источники, факты, гипотезы, прогнозы | Реестры с локаторами, хешами и происхождением |
 | Документы, таблицы, сайты | TXT/MD/CSV/JSON/HTML/DOCX/XLSX; разрешённые HTTPS-домены |
 | PDF, аудио/видео | PDF с текстовым слоем через pypdf; SRT/VTT с таймкодами; исходные медиа не распознаются CLI |
-| Интервью и UX | Аннотации с точным локатором; отдельный синтетический респондент и критик |
+| Интервью и UX | Аннотации с точным локатором; отдельный синтетический респондент, аналитик и критик |
 | Количественный анализ | Отношение сумм, Wilson 95%, планирование A/B, экономика сценариев |
-| Память и новые данные | Отзыв источников, каскад устаревания выводов, журнал пересмотра |
+| Память и новые данные | Отзыв источников, каскад устаревания выводов, архивирование контекста, журнал пересмотра |
 | Skills, роли, хуки | Файлы навыков; отдельные модельные вызовы; события до/после инструментов |
-| Маршрутизация и экономичность | Базовая/проверяющая модели, резерв бюджета, учёт токенов и ошибок |
+| Маршрутизация и учёт | Четыре настраиваемые роли, возврат к основной модели после исправления, общий резерв и журнал расходов |
 | MCP/CLI и переносимость | Один Toolbox для обеих интеграций, локальный проект без обязательной БД |
 
 Число ролей и инструментов само по себе не является показателем качества. Нативное

@@ -135,9 +135,26 @@ class OpenRouter:
         return input_bound * prompt_price + max_tokens * completion_price + request_price
 
     def complete(self, model, messages, tools, max_tokens=5000):
-        payload = {"model": model, "messages": messages, "max_tokens": max_tokens,
-                   "usage": {"include": True}, "provider": {"require_parameters": True},
-                   "temperature": 0.2}
+        # reserve_cost normally fills this cache. Direct callers still validate
+        # model capabilities using the public catalog before sending a paid POST.
+        info = self.models().get(model)
+        if not info:
+            raise ProviderError(f"Модель {model} отсутствует в каталоге OpenRouter.", code="unknown_model")
+        supported = info.get("supported_parameters", [])
+        if "max_completion_tokens" in supported:
+            token_parameter = "max_completion_tokens"
+        elif "max_tokens" in supported:
+            token_parameter = "max_tokens"
+        else:
+            raise ProviderError("Модель не заявляет поддержку ограничения длины ответа; платный запрос остановлен.", code="unsupported_output_limit")
+        payload = {"model": model, "messages": messages, token_parameter: max_tokens,
+                   "usage": {"include": True}, "provider": {"require_parameters": True}}
+        if "temperature" in supported:
+            payload["temperature"] = 0.2
         if tools:
-            payload.update(tools=tools, tool_choice="auto")
+            if "tools" not in supported:
+                raise ProviderError(f"Модель {model} не заявляет поддержку tools.", code="unsupported_tools")
+            payload["tools"] = tools
+            if "tool_choice" in supported:
+                payload["tool_choice"] = "auto"
         return self._http("/chat/completions", payload)

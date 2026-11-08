@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-08T09:34:06.694978+00:00",
+  "generated_at": "2026-11-08T14:53:45.016815+00:00",
   "python": "3.12.10",
   "platform": "win32",
   "tests": {
-    "run": 64,
-    "passed": 63,
+    "run": 100,
+    "passed": 99,
     "skipped": [
       {
         "test": "test_symlink_outside_materials_blocked (test_tools.ToolTests.test_symlink_outside_materials_blocked)",
@@ -21,11 +21,19 @@
       "output": {
         "python": "3.12.10",
         "python_supported": true,
-        "openrouter_key_configured": false,
+        "openrouter_key_configured": true,
         "models": [
           "google/gemini-2.5-flash",
-          "anthropic/claude-sonnet-4.5"
+          "anthropic/claude-sonnet-4.5",
+          "qwen/qwen3-235b-a22b-2507",
+          "openai/gpt-5.1-codex-mini"
         ],
+        "model_routes": {
+          "orchestrator": "google/gemini-2.5-flash",
+          "critic": "anthropic/claude-sonnet-4.5",
+          "interview_simulator": "qwen/qwen3-235b-a22b-2507",
+          "analyst": "openai/gpt-5.1-codex-mini"
+        },
         "network_checked": false,
         "live_generation_tested": false,
         "project_template": ".",
@@ -42,7 +50,7 @@
         "status": "paused",
         "steps_total": 2,
         "api_cost_usd": 0.0,
-        "elapsed_seconds": 1.2203,
+        "elapsed_seconds": 1.3137,
         "source_count": 10,
         "claim_count": 0,
         "project": "workspace/verification",
@@ -59,7 +67,7 @@
         "status": "awaiting_approval",
         "steps_total": 6,
         "api_cost_usd": 0.0,
-        "elapsed_seconds": 1.2674,
+        "elapsed_seconds": 0.9742,
         "source_count": 10,
         "claim_count": 5,
         "project": "workspace/verification",
@@ -77,7 +85,7 @@
         "budget_usd": 2.0,
         "unknown_cost_requests": 0,
         "question": "Выберите вариант после чтения artifacts/strategy.md: approve --option ID --note ... либо answer для правок.",
-        "updated_at": "2026-11-08T09:34:04+00:00",
+        "updated_at": "2026-11-08T14:53:43+00:00",
         "decision": null,
         "pause_requested": false,
         "unknown_requests": []
@@ -142,7 +150,7 @@
         "revision": {
           "id": "C-economics",
           "reason": "R08: синтетическое изменение годовой дополнительной маржи 600 → 100 RUB; прежнее допущение больше не применяется.",
-          "at": "2026-11-08T09:34:06.237281+00:00",
+          "at": "2026-11-08T14:53:44.467424+00:00",
           "affected_claims": [
             "C-pilot"
           ],
@@ -155,7 +163,7 @@
       }
     }
   ],
-  "elapsed_seconds": 10.274,
+  "elapsed_seconds": 16.198,
   "live_openrouter_generation_tested": false,
   "official_brief_used": false,
   "human_baseline_measured": false,

@@ -1,0 +1,75 @@
+{
+  "mode": "live_openrouter",
+  "routes": {
+    "OPENROUTER_MODEL": "google/gemini-2.5-flash",
+    "OPENROUTER_REVIEW_MODEL": "anthropic/claude-sonnet-4.5",
+    "OPENROUTER_RESPONDENT_MODEL": "qwen/qwen3-235b-a22b-2507",
+    "OPENROUTER_ANALYST_MODEL": "openai/gpt-5.1-codex-mini"
+  },
+  "created_at": "2026-11-08T14:19:42.138680+00:00",
+  "source_hashes": {
+    "materials/r01-cbr-2024.md": "8778b66cc12a36ed9dd704587935e2bcc3d5837a64076cf63d5ceb938536bfe1",
+    "materials/r02-cbr-2025.md": "2f8d7f44bc9b4d3dba46417a2a9c5c0f22402788111010291906c5e226a23145",
+    "materials/r03-mts-family.md": "882b127e716af457c22ea67adf9df415ca750df5ad71c54ada88ebc281c51277",
+    "materials/r04-t2-bundle.md": "9180c8ba912430bddb578d1445cd6a66c2866e2935991a073c7d3807b73c092c",
+    "materials/r05-access-log.md": "eb4656dcac8ddbd8d052c2b50a3870007b30d59174815cb257f4aeaeef687960",
+    "materials/r06-fixture-notes.md": "495682c997e892f11d7875bc3e73d1321d8107e187dee6094bd2ca6d89695ebf",
+    "materials/r07-interviews.md": "d276a4e0b09c3b3855afe86a0cf042bfb0b5694e4eb04c2fb589ce727c6825f5",
+    "materials/activation.csv": "f0a3da935369805b4d103a15847d291cae1b9e403b730756edd0fe469cc0e478",
+    "materials/funnel.csv": "46f71fc43107b8a76c5fea1f53a5a079a7e97cf30ca6bfc9cc4ff590a16c498d",
+    "materials/economics.csv": "8cbe1df98ecfdb7a4195710ea40cbe5097e639a81cfe810e6032b075b46fb821"
+  },
+  "authored_outputs_supplied": false,
+  "budget_usd": 1.5,
+  "interventions": [
+    {
+      "action": "Подготовлены условия учебного запуска",
+      "reason": "Официальный бриф отсутствует; вводные и модельные роли заданы до прогона.",
+      "actor": "Codex — оператор проверки"
+    },
+    {
+      "at": "2026-11-08T14:23:28+00:00",
+      "action": "Paused after 12 planning steps; corrected persistent expensive-model routing and tool-error logging. Original ledger preserved.",
+      "reason": "Real run showed recovered errors left the orchestrator on Claude indefinitely.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:29:49+00:00",
+      "action": "Archived and compacted 50 messages; requested correction of the source year and activation-versus-annual-retention conflation; rejected invented examples in critic output.",
+      "reason": "Direct audit against raw R02 and outcome definitions; context limit reached.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:37:25+00:00",
+      "action": "Independent audit rejected first submission. Switched synthesis to Claude; requested exact year repair, separated activation/retention, fixed fixed-horizon A/B criteria and unsupported promises. Agent budget cap 1.8 USD, combined trial cap remains 2 USD.",
+      "reason": "Gemini first submission repeated incorrect source period and metric conflation after initial correction. Original submission and claims archived.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:48:15+00:00",
+      "actor": "Codex — оператор проверки",
+      "action": "Передана содержательная проверка финального черновика, маршрут синтеза возвращён Gemini",
+      "reason": "Недостающая альтернатива закрытия, неверный знаменатель экономики, неподтверждённые обещания и пороги. Полный текст: final-review.txt; бюджет не увеличен."
+    },
+    {
+      "at": "2026-11-08T14:51:49+00:00",
+      "actor": "Codex — оператор и редактор проверки",
+      "kind": "explicit_editorial_revision",
+      "changes": [
+        "Отделены статистика мошенничества и спрос",
+        "Причинные утверждения заменены проверяемыми гипотезами",
+        "Входы экономики названы учебными допущениями брифа",
+        "Обещания ограничены подтверждением реализации",
+        "Уточнены рандомизация, событие, знаменатель и окно наблюдения",
+        "Разделены диагностика, A/B и годовое удержание",
+        "Возражения и условия пересмотра избавлены от неподтверждённой определённости"
+      ]
+    },
+    {
+      "at": "2026-11-08T14:54:16+00:00",
+      "actor": "Codex — оператор проверки",
+      "action": "Отозван вывод с неподтверждающим локатором и исключён ошибочный экономический сценарий из активного контекста",
+      "reason": "Исходный расчёт сохранён как economics-rejected.json; причины в analysis-review.json."
+    }
+  ]
+}

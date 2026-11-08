@@ -14,6 +14,11 @@
           "variable_cost_per_user": 0,
           "fixed_cost": 900000
         },
+        "variable_cost_basis": "all_users",
+        "variable_cost_users": 1500.0,
+        "warnings": [
+          "Знаменатель затрат не задан: для совместимости принят all_users. Проверьте источник до использования результата."
+        ],
         "revenue": 900000.0,
         "costs": 900000.0,
         "contribution": 0.0,
@@ -29,16 +34,22 @@
           "variable_cost_per_user": 0,
           "fixed_cost": 900000
         },
+        "variable_cost_basis": "all_users",
+        "variable_cost_users": 1500.0,
+        "warnings": [
+          "Знаменатель затрат не задан: для совместимости принят all_users. Проверьте источник до использования результата."
+        ],
         "revenue": 150000.0,
         "costs": 900000.0,
         "contribution": -750000.0,
         "break_even_users": 9000
       }
     ],
-    "formula": "revenue=users*conversion_rate*price; costs=users*variable_cost_per_user+fixed_cost",
+    "formula": "revenue=users*conversion_rate*price; costs=variable_cost_users*variable_cost_per_user+fixed_cost; variable_cost_users=users for all_users, users*conversion_rate for paying_users",
     "limitations": [
       "Входные числа — сценарные допущения, пока не привязаны к источникам.",
-      "Цена и затраты должны относиться к одному периоду. Налоги, CAC и стоимость капитала включите во входные затраты при необходимости."
+      "conversion_rate — доля платящих, не активация. Знаменатель затрат должен соответствовать источнику.",
+      "Цена и затраты должны относиться к одному периоду. CAC не является повторяющимся расходом: учитывайте приобретение клиентов отдельно, не дублируя его каждый месяц."
     ]
   }
 ]

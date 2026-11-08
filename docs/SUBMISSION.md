@@ -2,30 +2,47 @@
 
 Основная ссылка: https://github.com/temurysega/product-strategy-agent
 
-| Материал | Путь |
-|---|---|
-| Запуск и границы | `README.md` |
-| Описание со скриншотами | `submission/description.pdf` |
-| То же в HTML | `submission/description.html` |
-| Предварительный бриф | `examples/family-safety/brief.md` |
-| Исходные материалы и происхождение | `examples/family-safety/manifest.json`, `materials/` |
-| Продуктовая стратегия | `examples/family-safety/outputs/product-strategy.md` |
-| Коммуникационная стратегия | `examples/family-safety/outputs/communication-strategy.md` |
-| Альтернативы и эксперимент | `examples/family-safety/outputs/options.md`, `experiments.md` |
-| Пересмотр и обязательства | `examples/family-safety/outputs/changes.md`, `decision-register.json` |
-| Фактические результаты проверок | `submission/validation.json`, `submission/checks.txt` |
-| Сохранённый результат пересмотра | `submission/replay/strategy.md` |
-| Независимая проверка навыка | `docs/FORWARD_TEST.md` |
-| Новая задача | `examples/unseen-onboarding/` |
-| Протокол сравнения | `docs/EVALUATION.md`, `benchmarks/baseline-template.json` |
+| Материал | Путь | Что подтверждает |
+|---|---|---|
+| Запуск и границы | [README.md](../README.md) | Подготовку, платный запуск, продолжение и экспорт |
+| Описание с изображениями журнала | [PDF](../submission/description.pdf), [HTML](../submission/description.html) | Сохранённые результаты; происхождение изображений объяснено в [LIVE_EVIDENCE.md](LIVE_EVIDENCE.md) |
+| Предварительный бриф и корпус | [Бриф](../examples/family-safety/brief.md), [манифест](../examples/family-safety/manifest.json), `examples/family-safety/materials/` | Вводные кейса, происхождение конспектов и синтетических данных |
+| Авторский пример | `examples/family-safety/outputs/` | Пример стратегий и пересмотра; не результат живой модели |
+| Последний модельный ответ | [model-generated-final.md](../submission/live/model-generated-final.md) | Выход модели до редакторских правок; версия для сравнения с базовым чатом |
+| Черновик после редактуры | [strategy.md](../submission/live/strategy.md), [editorial-revision.json](../submission/live/editorial-revision.json) | Явную правку оператором Codex, причины, хеши и разницу |
+| Модели и расходы | [ledger.json](../submission/live/ledger.json), [summary.json](../submission/live/summary.json) | Вызовы, роли, возвращённые имена моделей, стоимость и вмешательства |
+| След работы | [messages.json](../submission/live/messages.json), [events.jsonl](../submission/live/events.jsonl), `submission/live/specialists/` | Результаты инструментов, ошибки, ответы ролей и продолжение работы |
+| Реестр оснований | [sources.json](../submission/live/sources.json), [claims.json](../submission/live/claims.json) | Материалы, локаторы, происхождение и актуальность выводов |
+| Обычный чат | [comparison.json](../submission/benchmark/comparison.json), [baseline.md](../submission/benchmark/baseline.md), `submission/benchmark/checkpoint.json` | Один платный ответ и условия сравнения |
+| Проверка версий | [COMPARISON_REVIEW.md](COMPARISON_REVIEW.md) | Ошибки первой подачи, замечания к доработке и границы суждения |
+| Локальные проверки | [validation.json](../submission/validation.json), [checks.txt](../submission/checks.txt) | Результаты тестов и офлайн-воспроизведения |
+| Офлайн-пересмотр | [replay/strategy.md](../submission/replay/strategy.md) | Локальные действия по заданному учебному сценарию |
+| Проверка навыка и новая тема | [FORWARD_TEST.md](FORWARD_TEST.md), [unseen-onboarding](../examples/unseen-onboarding/) | Проверку процедуры и инструментов на втором корпусе |
+| Карта критериев и ограничения | [EVALUATION.md](EVALUATION.md), [ARCHITECTURE.md](ARCHITECTURE.md) | Связь возможностей с доказательствами |
 
-Не выдавать нулевую API-цену офлайн-сценария за стоимость подготовки или живого исследования.
-Не выдавать авторский эталон за результат уже выполненного OpenRouter-прогона.
-Не менять `null` в протоколе сравнения на ноль без измерения.
+В живом прогоне реально вызваны Gemini, Claude, Qwen и Codex-mini через OpenRouter.
+Скриншоты показывают собственную визуализацию сохранённого журнала. Они не изображают
+интерфейсы этих сервисов или точную модель среды разработки Codex.
+
+Исходный корпус не содержал готовых авторских стратегий. При этом прогон сопровождался
+оператором: ошибки вызовов и смысловые ошибки исправлялись с его помощью. Первая неудачная
+подача и замечания сохранены. Исправленный черновик нельзя представлять как результат
+без вмешательств или переносить оценку одной версии на другую. Ожидание выбора
+не равнозначно утверждению руководителем.
+
+Последний модельный ответ и текущая стратегия разделены: оператор Codex дополнительно
+отредактировал `strategy.*` без API-вызова, сохранив `model-generated-final.*` и журнал
+редактуры. Бенчмарк сравнивает базовый чат с модельным выходом, до этой правки.
+
+Суммы и время читаются из текущих экспортированных журналов. Нулевая API-цена
+офлайн-сценария не является ценой разработки или исследования. Базовый чат и агент
+использовали разные ресурсы; один случай не доказывает экономию или превосходство.
+Отсутствующее измерение обозначается `null`, а не нулём.
+
+Для новой проверки `scripts/live_demo.py prepare/run/export` разделяет подготовку,
+платную работу и экспорт. `scripts/benchmark.py` делает один платный запрос в новую
+папку; повторная сборка с `--summarize` локальна. Секреты и `.env` в пакет не входят.
 
 Для окончательной подачи остаются обязательный ролик до 10 минут и сверка с официальным
-брифом после его публикации. Живой OpenRouter-прогон можно выполнить по README с ключом,
-сохранить его реальные расходы и добавить сравнение с обычным чатом на том же корпусе.
-В текущем пакете отсутствие этих измерений обозначено, максимальная оценка не присваивается.
-
-Репозиторий подготовлен к отправке; действие в личном кабинете конкурса не выполнялось.
+брифом после его публикации. Ролик отложен по просьбе владельца. Пакет не подтверждает
+подачу в личном кабинете конкурса; это действие не выполнялось.

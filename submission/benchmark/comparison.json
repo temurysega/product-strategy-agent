@@ -1,0 +1,862 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-08T14:55:22+00:00",
+  "n_cases": 1,
+  "n_baseline_attempts": 1,
+  "case": "9709ca2addc84297a5d818134c3da967",
+  "input_sha256": "c5cfb461fa0a6586de9393974caccee4d0dbb9a4dba4bd5b45235fa6d5d8dc07",
+  "raw_input_sha256": "d23ffe954ea0def1a1c7ec944aa9bdc8a59d0637271194b8fd292a8934f782ed",
+  "same_raw_input_at_summary": true,
+  "protocol": {
+    "baseline": "One completion, same raw brief/materials, no tools, no rerolls, no generated agent findings in prompt.",
+    "output_contract": "submit_strategy JSON schema; baseline claim_ids is empty, source citations are in prose.",
+    "model_matched": true,
+    "budget_matched": false,
+    "agent_live": true,
+    "agent_strategy_artifact": "artifacts/model-generated-final.json",
+    "agent_strategy_sha256": "526ca17f902419706b44277dd3a8f818a62040a43db4749f12cb5be47d0779a1",
+    "editorial_revision_excluded_from_comparison": true,
+    "source_materials": [
+      {
+        "path": "materials/activation.csv",
+        "source_id": "S-500fb93cbb",
+        "provenance": "synthetic",
+        "origin_url": null,
+        "sha256": "f0a3da935369805b4d103a15847d291cae1b9e403b730756edd0fe469cc0e478"
+      },
+      {
+        "path": "materials/economics.csv",
+        "source_id": "S-534e71ec2e",
+        "provenance": "synthetic",
+        "origin_url": null,
+        "sha256": "8cbe1df98ecfdb7a4195710ea40cbe5097e639a81cfe810e6032b075b46fb821"
+      },
+      {
+        "path": "materials/funnel.csv",
+        "source_id": "S-18d9f7c20f",
+        "provenance": "synthetic",
+        "origin_url": null,
+        "sha256": "46f71fc43107b8a76c5fea1f53a5a079a7e97cf30ca6bfc9cc4ff590a16c498d"
+      },
+      {
+        "path": "materials/r01-cbr-2024.md",
+        "source_id": "S-9dff30f503",
+        "provenance": "public",
+        "origin_url": "https://www.cbr.ru/analytics/ib/operations_survey/2024/",
+        "sha256": "8778b66cc12a36ed9dd704587935e2bcc3d5837a64076cf63d5ceb938536bfe1"
+      },
+      {
+        "path": "materials/r02-cbr-2025.md",
+        "source_id": "S-146407966c",
+        "provenance": "public",
+        "origin_url": "https://www.cbr.ru/analytics/ib/operations_survey/2025/",
+        "sha256": "2f8d7f44bc9b4d3dba46417a2a9c5c0f22402788111010291906c5e226a23145"
+      },
+      {
+        "path": "materials/r03-mts-family.md",
+        "source_id": "S-b432b82555",
+        "provenance": "public",
+        "origin_url": "https://support.mts.ru/zaschitnik/zaschitnik/kak-podklyuchit-zaschitnik",
+        "sha256": "882b127e716af457c22ea67adf9df415ca750df5ad71c54ada88ebc281c51277"
+      },
+      {
+        "path": "materials/r04-t2-bundle.md",
+        "source_id": "S-0ce2654f48",
+        "provenance": "public",
+        "origin_url": "https://faces.t2.ru/mixx-all",
+        "sha256": "9180c8ba912430bddb578d1445cd6a66c2866e2935991a073c7d3807b73c092c"
+      },
+      {
+        "path": "materials/r05-access-log.md",
+        "source_id": "S-c8e15f7506",
+        "provenance": "owned",
+        "origin_url": null,
+        "sha256": "eb4656dcac8ddbd8d052c2b50a3870007b30d59174815cb257f4aeaeef687960"
+      },
+      {
+        "path": "materials/r06-fixture-notes.md",
+        "source_id": "S-43b01e3141",
+        "provenance": "synthetic",
+        "origin_url": null,
+        "sha256": "495682c997e892f11d7875bc3e73d1321d8107e187dee6094bd2ca6d89695ebf"
+      },
+      {
+        "path": "materials/r07-interviews.md",
+        "source_id": "S-b873b75710",
+        "provenance": "synthetic",
+        "origin_url": null,
+        "sha256": "d276a4e0b09c3b3855afe86a0cf042bfb0b5694e4eb04c2fb589ce727c6825f5"
+      }
+    ]
+  },
+  "metrics": {
+    "baseline": {
+      "requested_model": "google/gemini-2.5-flash",
+      "returned_model": "google/gemini-2.5-flash",
+      "request_id": "a911ca635e21428faee70f2989f804d5",
+      "provider_id": "gen-1794147717-1rdnQjwTHGnL50xXewKo",
+      "budget_usd": 0.25,
+      "reserved_usd": 0.0213278,
+      "max_output_tokens": 5000,
+      "started_at": "2026-11-08T14:21:57+00:00",
+      "finished_at": "2026-11-08T14:22:09+00:00",
+      "wall_time_seconds": 11.91592,
+      "prompt_tokens": 5709.0,
+      "completion_tokens": 2501.0,
+      "total_tokens": 8210.0,
+      "cost_usd": 0.0079652,
+      "cost_status": "reported_usage.cost",
+      "paid_call_attempted": true,
+      "human_correction_minutes": null,
+      "budget_exceeded": false
+    },
+    "agent": {
+      "status": "awaiting_approval",
+      "paid_requests_recorded": 35,
+      "model_ids": [
+        "anthropic/claude-sonnet-4.5",
+        "google/gemini-2.5-flash",
+        "openai/gpt-5.1-codex-mini",
+        "qwen/qwen3-235b-a22b-2507"
+      ],
+      "wall_time_seconds": 429.609,
+      "wall_time_source": "artifacts/live-metrics.json",
+      "model_request_seconds": 415.709,
+      "prompt_tokens": 674841.0,
+      "completion_tokens": 34290.0,
+      "cost_usd": 1.83956842,
+      "known_cost_usd": 1.83956842,
+      "unknown_cost_requests": 0,
+      "budget_usd": 1.99,
+      "requests": [
+        {
+          "id": "1cd4471708894951bf0c04986d93b67d",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:19:50+00:00",
+          "reserved_usd": 0.0219692,
+          "provider_id": "gen-1794147590-Uo0TfktDKHDd78pTbJp9",
+          "cost_usd": 0.0014956,
+          "prompt_tokens": 4902,
+          "completion_tokens": 10,
+          "elapsed_seconds": 1.703
+        },
+        {
+          "id": "0382b345c8d448728d93a2d85c4fe233",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:19:52+00:00",
+          "reserved_usd": 0.022393700000000002,
+          "provider_id": "gen-1794147592-k2U4J1Vx1V2hJFOeqY7Q",
+          "cost_usd": 0.00502887,
+          "prompt_tokens": 5303,
+          "completion_tokens": 1887,
+          "elapsed_seconds": 8.579
+        },
+        {
+          "id": "2f7e7ae6395e4e4f8fdbb4aed8f2df5c",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:01+00:00",
+          "reserved_usd": 0.23877900000000002,
+          "provider_id": "gen-1794147601-1EEJckyWukuPjMHudp1X",
+          "cost_usd": 0.069486,
+          "prompt_tokens": 20312,
+          "completion_tokens": 570,
+          "elapsed_seconds": 6.969
+        },
+        {
+          "id": "28ad45e685614a72885a298001122d60",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:09+00:00",
+          "reserved_usd": 0.280671,
+          "provider_id": "gen-1794147609-9Fayx6sMP0ivb8Fa9bhl",
+          "cost_usd": 0.077019,
+          "prompt_tokens": 24123,
+          "completion_tokens": 310,
+          "elapsed_seconds": 5.484
+        },
+        {
+          "id": "f10fa3f12a3a497db596cbe36c07dbb2",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:15+00:00",
+          "reserved_usd": 0.309714,
+          "provider_id": "gen-1794147615-v2dvauRd40s1zh9JQtHD",
+          "cost_usd": 0.082635,
+          "prompt_tokens": 26805,
+          "completion_tokens": 148,
+          "elapsed_seconds": 3.25
+        },
+        {
+          "id": "63d50c1aeaf44eb4b0dfd93a3efd45aa",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:18+00:00",
+          "reserved_usd": 0.31558200000000003,
+          "provider_id": "gen-1794147618-gaUKwp75xjG4hvycq8Zb",
+          "cost_usd": 0.093549,
+          "prompt_tokens": 27383,
+          "completion_tokens": 760,
+          "elapsed_seconds": 10.891
+        },
+        {
+          "id": "8ac2de331c1641758b553af92833aaad",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:30+00:00",
+          "reserved_usd": 0.33032100000000003,
+          "provider_id": "gen-1794147629-5o98z19eUtJwlaCKT2eo",
+          "cost_usd": 0.093453,
+          "prompt_tokens": 28861,
+          "completion_tokens": 458,
+          "elapsed_seconds": 8.328
+        },
+        {
+          "id": "8183a93bc3224db486c16c7a8cdc1c53",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:38+00:00",
+          "reserved_usd": 0.338115,
+          "provider_id": "gen-1794147638-KASKaWqAAuM8aW0A8zlz",
+          "cost_usd": 0.091956,
+          "prompt_tokens": 29617,
+          "completion_tokens": 207,
+          "elapsed_seconds": 3.266
+        },
+        {
+          "id": "08174fc4dae74577a480fdb080299d2b",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:42+00:00",
+          "reserved_usd": 0.342258,
+          "provider_id": "gen-1794147641-6DK3VPgboosE5u89ZTkv",
+          "cost_usd": 0.09189,
+          "prompt_tokens": 30020,
+          "completion_tokens": 122,
+          "elapsed_seconds": 3.313
+        },
+        {
+          "id": "1852a1b052a642319a97a716f954a933",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:45+00:00",
+          "reserved_usd": 0.36042,
+          "provider_id": "gen-1794147645-9KjZ6x0fxBbvbE9ezKfl",
+          "cost_usd": 0.095592,
+          "prompt_tokens": 31459,
+          "completion_tokens": 81,
+          "elapsed_seconds": 3.375
+        },
+        {
+          "id": "9573cced6d8f47ddb58af87984f5fe47",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:49+00:00",
+          "reserved_usd": 0.363771,
+          "provider_id": "gen-1794147648-yDwiENdp0LUiuJgYx7wt",
+          "cost_usd": 0.10026,
+          "prompt_tokens": 31835,
+          "completion_tokens": 317,
+          "elapsed_seconds": 4.922
+        },
+        {
+          "id": "786ee500dcdb44c28e7e3a2d5aa2ee71",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:20:54+00:00",
+          "reserved_usd": 0.37048200000000003,
+          "provider_id": "gen-1794147654-6wkjWL5lEF84mr8mZq8o",
+          "cost_usd": 0.106962,
+          "prompt_tokens": 32544,
+          "completion_tokens": 622,
+          "elapsed_seconds": 13.546
+        },
+        {
+          "id": "ad67f2f1d8684383952910de7cfc44c3",
+          "model": "openai/gpt-5.1-codex-mini",
+          "requested_model": "openai/gpt-5.1-codex-mini",
+          "model_source": "provider",
+          "purpose": "specialist:analyst",
+          "started_at": "2026-11-08T14:24:10+00:00",
+          "reserved_usd": 0.011547,
+          "provider_id": "gen-1794147849-3oikTMMoOZi4TlJ79OX8",
+          "cost_usd": 0.0034875,
+          "prompt_tokens": 638,
+          "completion_tokens": 1664,
+          "elapsed_seconds": 10.766
+        },
+        {
+          "id": "3c4faf8b21814ed3bfd57cc95aedf310",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:24:21+00:00",
+          "reserved_usd": 0.045374899999999996,
+          "provider_id": "gen-1794147860-gsz4u3IIsxox2hodpBDJ",
+          "cost_usd": 0.0131219,
+          "prompt_tokens": 21173,
+          "completion_tokens": 2708,
+          "elapsed_seconds": 13.953
+        },
+        {
+          "id": "af43e4a49c0f4ce195e7d4451ba16b63",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "specialist:critic",
+          "started_at": "2026-11-08T14:24:35+00:00",
+          "reserved_usd": 0.092088,
+          "provider_id": "gen-1794147874-7qifZKVbWk5AW4T4nn9i",
+          "cost_usd": 0.054723,
+          "prompt_tokens": 816,
+          "completion_tokens": 3485,
+          "elapsed_seconds": 68.578
+        },
+        {
+          "id": "e445c63d700e4c57afb35ccc47006afc",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:25:43+00:00",
+          "reserved_usd": 0.054901099999999994,
+          "provider_id": "gen-1794147943-ludJQjMJKY2jG64qClP5",
+          "cost_usd": 0.0198705,
+          "prompt_tokens": 26735,
+          "completion_tokens": 4740,
+          "elapsed_seconds": 20.032
+        },
+        {
+          "id": "83e0417da79a4acdb8c71384458c7257",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:29:51+00:00",
+          "reserved_usd": 0.0282494,
+          "provider_id": "gen-1794148190-xgMTf2bM6CNYRygXDp7L",
+          "cost_usd": 0.0031898,
+          "prompt_tokens": 9816,
+          "completion_tokens": 98,
+          "elapsed_seconds": 1.485
+        },
+        {
+          "id": "921a9601e4f84a5f871fe676fcbe1c2b",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:29:52+00:00",
+          "reserved_usd": 0.0285746,
+          "provider_id": "gen-1794148192-cFZwGbUM5sGRRpmYIMn0",
+          "cost_usd": 0.00097286,
+          "prompt_tokens": 10084,
+          "completion_tokens": 134,
+          "elapsed_seconds": 1.469
+        },
+        {
+          "id": "f864f758fb084b72b4a0d6a823ae1c2a",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:29:54+00:00",
+          "reserved_usd": 0.0289133,
+          "provider_id": "gen-1794148194-JWYFTKwbCBXhda8B339M",
+          "cost_usd": 0.0008103,
+          "prompt_tokens": 10264,
+          "completion_tokens": 153,
+          "elapsed_seconds": 1.563
+        },
+        {
+          "id": "2cb30bc7e29b41b98ab52dd5bd92aac5",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:29:56+00:00",
+          "reserved_usd": 0.0294578,
+          "provider_id": "gen-1794148195-hhlpPCatCQ0LScAbnjRH",
+          "cost_usd": 0.00081742,
+          "prompt_tokens": 10633,
+          "completion_tokens": 112,
+          "elapsed_seconds": 1.422
+        },
+        {
+          "id": "18ba379c3b7e4059b918ac7f24b45338",
+          "model": "qwen/qwen3-235b-a22b-2507",
+          "requested_model": "qwen/qwen3-235b-a22b-2507",
+          "model_source": "provider",
+          "purpose": "specialist:interview_simulator",
+          "started_at": "2026-11-08T14:29:57+00:00",
+          "reserved_usd": 0.00463952,
+          "provider_id": "gen-1794148197-EOsIFBQuoAEEx5zzniwb",
+          "cost_usd": 0.00096528,
+          "prompt_tokens": 472,
+          "completion_tokens": 1124,
+          "elapsed_seconds": 35.797
+        },
+        {
+          "id": "a02173a0b7084ae1a5815a2f499ebaf7",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:30:33+00:00",
+          "reserved_usd": 0.0316535,
+          "provider_id": "gen-1794148233-rcQbWRUifNvDO4jzTMfv",
+          "cost_usd": 0.00593781,
+          "prompt_tokens": 11914,
+          "completion_tokens": 2010,
+          "elapsed_seconds": 10.125
+        },
+        {
+          "id": "472fd2dcf31646a993d1ddd96a525d3b",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:30:43+00:00",
+          "reserved_usd": 0.0348548,
+          "provider_id": "gen-1794148243-c69ypRoLYoSYo6vGoH8U",
+          "cost_usd": 0.00421048,
+          "prompt_tokens": 14049,
+          "completion_tokens": 1282,
+          "elapsed_seconds": 7.156
+        },
+        {
+          "id": "914bc91716b94c0faf578f6f253aad4d",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:30:51+00:00",
+          "reserved_usd": 0.0376151,
+          "provider_id": "gen-1794148250-bsS16kJP6Hbpy6edvES7",
+          "cost_usd": 0.0,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "elapsed_seconds": 22.578
+        },
+        {
+          "id": "3a1d1d1423df455f8fbeb030c0a9feec",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:31:13+00:00",
+          "reserved_usd": 0.042036199999999996,
+          "provider_id": "gen-1794148273-A8QYyA7JybNT5n3SCoaV",
+          "cost_usd": 0.0071959,
+          "prompt_tokens": 18058,
+          "completion_tokens": 2326,
+          "elapsed_seconds": 9.985
+        },
+        {
+          "id": "a07fddcfb34d4aa790f69c0a99cde817",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:37:26+00:00",
+          "reserved_usd": 0.31677,
+          "provider_id": "gen-1794148646-OhR3Sc2IjWr4UfGimnFM",
+          "cost_usd": 0.083283,
+          "prompt_tokens": 27101,
+          "completion_tokens": 132,
+          "elapsed_seconds": 3.719
+        },
+        {
+          "id": "2201c0cf15c9483b9296121193a64018",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:37:30+00:00",
+          "reserved_usd": 0.324858,
+          "provider_id": "gen-1794148650-HUgkIpf8c1ihMpgcIdw2",
+          "cost_usd": 0.086811,
+          "prompt_tokens": 27872,
+          "completion_tokens": 213,
+          "elapsed_seconds": 5.141
+        },
+        {
+          "id": "338e230e71fa450eb96edfc2ac489844",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:37:35+00:00",
+          "reserved_usd": 0.329004,
+          "provider_id": "gen-1794148655-mR6FqR5vRPwcx1Ubhngw",
+          "cost_usd": 0.088887,
+          "prompt_tokens": 28264,
+          "completion_tokens": 273,
+          "elapsed_seconds": 4.829
+        },
+        {
+          "id": "15d7452e244b4291ade460bde314a4e9",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:37:40+00:00",
+          "reserved_usd": 0.334428,
+          "provider_id": "gen-1794148660-IyECi9ufOR7tKCKe6Qil",
+          "cost_usd": 0.09075,
+          "prompt_tokens": 28775,
+          "completion_tokens": 295,
+          "elapsed_seconds": 6.313
+        },
+        {
+          "id": "39c42d4f8ed24b1686f6f1675aac4e53",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:37:47+00:00",
+          "reserved_usd": 0.339903,
+          "provider_id": "gen-1794148666-y5DJH48CD40SFEdqzodw",
+          "cost_usd": 0.08961,
+          "prompt_tokens": 29295,
+          "completion_tokens": 115,
+          "elapsed_seconds": 3.032
+        },
+        {
+          "id": "f7ec84b25ec146eb98d587b11a1f6277",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:40:05+00:00",
+          "reserved_usd": 0.259788,
+          "provider_id": "gen-1794148804-Dm8hyIhgck9NfCI7xMfI",
+          "cost_usd": 0.068586,
+          "prompt_tokens": 21917,
+          "completion_tokens": 189,
+          "elapsed_seconds": 4.625
+        },
+        {
+          "id": "1537e40ee9404359b7d8b351b023c41e",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:40:09+00:00",
+          "reserved_usd": 0.268566,
+          "provider_id": "gen-1794148810-Wnh0DIyS37O6x8aqZRAt",
+          "cost_usd": 0.076125,
+          "prompt_tokens": 22745,
+          "completion_tokens": 526,
+          "elapsed_seconds": 9.672
+        },
+        {
+          "id": "0e1de618491f4783b1da189a5718620d",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:40:19+00:00",
+          "reserved_usd": 0.277032,
+          "provider_id": "gen-1794148819-MYMxZL3gLmdm7ophae0m",
+          "cost_usd": 0.075075,
+          "prompt_tokens": 23590,
+          "completion_tokens": 287,
+          "elapsed_seconds": 6.125
+        },
+        {
+          "id": "34e480b122144de1ab6e98990b35ddd5",
+          "model": "anthropic/claude-sonnet-4.5",
+          "requested_model": "anthropic/claude-sonnet-4.5",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:41:21+00:00",
+          "reserved_usd": 0.286965,
+          "provider_id": "gen-1794148881-zmV7hE2xvCFFQPd6u14k",
+          "cost_usd": 0.146826,
+          "prompt_tokens": 24437,
+          "completion_tokens": 4901,
+          "elapsed_seconds": 81.531
+        },
+        {
+          "id": "bae6ad02ead5437a9c4bba9c98903b15",
+          "model": "google/gemini-2.5-flash",
+          "requested_model": "google/gemini-2.5-flash",
+          "model_source": "provider",
+          "purpose": "orchestrator",
+          "started_at": "2026-11-08T14:48:18+00:00",
+          "reserved_usd": 0.0333182,
+          "provider_id": "gen-1794149297-yQ6rJ5cUdG4FfDYgeq9y",
+          "cost_usd": 0.0089862,
+          "prompt_tokens": 13029,
+          "completion_tokens": 2031,
+          "elapsed_seconds": 12.187
+        }
+      ],
+      "human_correction_minutes": null
+    },
+    "combined_cost_usd": 1.84753362,
+    "human_analyst": {
+      "measured": false,
+      "wall_time_seconds": null,
+      "cost_usd": null
+    }
+  },
+  "automatic_checks": {
+    "interpretation": "Structural and lexical observations, not a semantic score. A citation ID match does not establish support; keyword presence does not establish a valid experiment or owner.",
+    "baseline": {
+      "schema_valid": {
+        "passed": true,
+        "errors": []
+      },
+      "three_option_kinds": {
+        "passed": true,
+        "count": 4
+      },
+      "unique_option_ids": {
+        "passed": true
+      },
+      "option_descriptions_and_objections": {
+        "passed": true
+      },
+      "recommendation_exists": {
+        "passed": true
+      },
+      "strategies_and_experiment_present": {
+        "passed": true
+      },
+      "direct_source_citations": {
+        "passed": false,
+        "cited_ids": [
+          "S-500fb93cbb",
+          "S-534e71ec2e",
+          "S-R02",
+          "S-R04",
+          "S-R06",
+          "S-R07",
+          "S-c8e15f7506"
+        ],
+        "unknown_ids": [
+          "S-R02",
+          "S-R04",
+          "S-R06",
+          "S-R07"
+        ]
+      },
+      "fact_and_hypothesis_markers": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "факт|наблюден|fact|observ",
+          "гипотез|допущен|hypothes|assum"
+        ]
+      },
+      "owner_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "владел|ответствен|owner|responsib"
+        ]
+      },
+      "metric_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "метрик|показател|metric"
+        ]
+      },
+      "denominator_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "знаменател|denominator|рандомиз"
+        ]
+      },
+      "time_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "дн[еяи]|дней|недел|месяц|срок|период|days?|weeks?"
+        ]
+      },
+      "stop_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "останов|стоп|stop|guardrail"
+        ]
+      },
+      "claim_trace": {
+        "referenced_claims": [],
+        "unknown_claims": [],
+        "source_ids": [],
+        "unknown_source_ids": [],
+        "note": "Agent-only trace metadata; not a baseline quality penalty."
+      }
+    },
+    "agent": {
+      "schema_valid": {
+        "passed": true,
+        "errors": []
+      },
+      "three_option_kinds": {
+        "passed": true,
+        "count": 5
+      },
+      "unique_option_ids": {
+        "passed": true
+      },
+      "option_descriptions_and_objections": {
+        "passed": true
+      },
+      "recommendation_exists": {
+        "passed": true
+      },
+      "strategies_and_experiment_present": {
+        "passed": true
+      },
+      "direct_source_citations": {
+        "passed": false,
+        "cited_ids": [],
+        "unknown_ids": []
+      },
+      "fact_and_hypothesis_markers": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "факт|наблюден|fact|observ",
+          "гипотез|допущен|hypothes|assum"
+        ]
+      },
+      "owner_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "владел|ответствен|owner|responsib"
+        ]
+      },
+      "metric_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "метрик|показател|metric"
+        ]
+      },
+      "denominator_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "знаменател|denominator|рандомиз"
+        ]
+      },
+      "time_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "дн[еяи]|дней|недел|месяц|срок|период|days?|weeks?"
+        ]
+      },
+      "stop_marker": {
+        "passed": true,
+        "method": "lexical_presence_only",
+        "patterns": [
+          "останов|стоп|stop|guardrail"
+        ]
+      },
+      "claim_trace": {
+        "referenced_claims": [
+          "C-cbr-2025-fraud-growth",
+          "C-283818eeb0",
+          "C-ac7108de43",
+          "C-83309497da"
+        ],
+        "unknown_claims": [],
+        "source_ids": [
+          "S-146407966c",
+          "S-43b01e3141",
+          "S-500fb93cbb",
+          "S-b432b82555",
+          "S-b873b75710"
+        ],
+        "unknown_source_ids": [],
+        "note": "Agent-only trace metadata; not a baseline quality penalty."
+      }
+    }
+  },
+  "manual_assessment": {
+    "status": "pending",
+    "reviewer": null,
+    "independent": null,
+    "rubric": [
+      {
+        "id": "grounding",
+        "question": "Проверить существенные утверждения по первоисточникам: поддерживает ли ссылка именно формулировку, дату и масштаб? Сосчитать проверенные и ошибочные утверждения."
+      },
+      {
+        "id": "epistemics",
+        "question": "Разделены ли наблюдения, гипотезы, прогнозы и синтетические данные? Нет ли ложной причинности или выдуманного спроса?"
+      },
+      {
+        "id": "alternatives",
+        "question": "Содержательно ли различаются варианты, сильны ли возражения, указаны ли условия смены выбора?"
+      },
+      {
+        "id": "alignment",
+        "question": "Согласованы ли продуктовая и коммуникационная стратегии, соответствуют ли обещания доказанным функциям?"
+      },
+      {
+        "id": "verification",
+        "question": "Проверяемы ли гипотеза, контроль, метрика, знаменатель, период и стоп-условия? Корректны ли вычисления и размер выборки?"
+      },
+      {
+        "id": "execution",
+        "question": "Есть ли реалистичные владельцы, ресурсы, сроки, риски и условия пересмотра?"
+      },
+      {
+        "id": "usability",
+        "question": "Может ли руководитель сделать содержательный выбор? Зафиксировать реальные минуты исправлений человеком отдельно."
+      }
+    ],
+    "baseline_findings": null,
+    "agent_findings": null,
+    "verified_claim_count": null,
+    "unsupported_claim_count": null,
+    "conclusion": null
+  },
+  "limitations": [
+    "n=1: one public demo case and one baseline attempt; no causal or general superiority claim.",
+    "Different workflows, prompts and possibly budgets/models; this is a descriptive case study, not a controlled ablation.",
+    "If a model-generated-final snapshot exists, agent output checks use it; later editorial changes are excluded. Operator feedback supplied before model generation remains a workflow confound.",
+    "Corpus equality checks current files, not which evidence the agent actually read; inspect its tool trace for external additions or authored-output leakage.",
+    "Human quality assessment and correction time are pending; no fabricated human baseline.",
+    "API usage.cost excludes development time and subscription costs; an unknown cost remains null.",
+    "Model request time and measured end-to-end agent wall time are distinct; absent timing is null."
+  ]
+}

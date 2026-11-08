@@ -1,0 +1,279 @@
+{
+  "live_openrouter_generation_tested": true,
+  "status": "awaiting_approval",
+  "started_at": "2026-11-08T14:19:42+00:00",
+  "finished_at": "2026-11-08T14:51:49+00:00",
+  "elapsed_seconds": 429.609,
+  "models": [
+    {
+      "role": "orchestrator",
+      "model": "google/gemini-2.5-flash",
+      "calls": 13,
+      "prompt_tokens": 155960,
+      "completion_tokens": 17491,
+      "cost_usd": 0.07163764,
+      "unknown_cost_requests": 0
+    },
+    {
+      "role": "orchestrator",
+      "model": "anthropic/claude-sonnet-4.5",
+      "calls": 19,
+      "prompt_tokens": 516955,
+      "completion_tokens": 10526,
+      "cost_usd": 1.708755,
+      "unknown_cost_requests": 0
+    },
+    {
+      "role": "specialist:analyst",
+      "model": "openai/gpt-5.1-codex-mini",
+      "calls": 1,
+      "prompt_tokens": 638,
+      "completion_tokens": 1664,
+      "cost_usd": 0.0034875,
+      "unknown_cost_requests": 0
+    },
+    {
+      "role": "specialist:critic",
+      "model": "anthropic/claude-sonnet-4.5",
+      "calls": 1,
+      "prompt_tokens": 816,
+      "completion_tokens": 3485,
+      "cost_usd": 0.054723,
+      "unknown_cost_requests": 0
+    },
+    {
+      "role": "specialist:interview_simulator",
+      "model": "qwen/qwen3-235b-a22b-2507",
+      "calls": 1,
+      "prompt_tokens": 472,
+      "completion_tokens": 1124,
+      "cost_usd": 0.00096528,
+      "unknown_cost_requests": 0
+    }
+  ],
+  "api_cost_usd": 1.83956842,
+  "unknown_cost_requests": 0,
+  "model_calls": 35,
+  "specialist_calls": 3,
+  "tool_calls": 53,
+  "project": "workspace/live-ensemble",
+  "human_interventions": [
+    {
+      "action": "Подготовлены условия учебного запуска",
+      "reason": "Официальный бриф отсутствует; вводные и модельные роли заданы до прогона.",
+      "actor": "Codex — оператор проверки"
+    },
+    {
+      "at": "2026-11-08T14:23:28+00:00",
+      "action": "Paused after 12 planning steps; corrected persistent expensive-model routing and tool-error logging. Original ledger preserved.",
+      "reason": "Real run showed recovered errors left the orchestrator on Claude indefinitely.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:29:49+00:00",
+      "action": "Archived and compacted 50 messages; requested correction of the source year and activation-versus-annual-retention conflation; rejected invented examples in critic output.",
+      "reason": "Direct audit against raw R02 and outcome definitions; context limit reached.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:37:25+00:00",
+      "action": "Independent audit rejected first submission. Switched synthesis to Claude; requested exact year repair, separated activation/retention, fixed fixed-horizon A/B criteria and unsupported promises. Agent budget cap 1.8 USD, combined trial cap remains 2 USD.",
+      "reason": "Gemini first submission repeated incorrect source period and metric conflation after initial correction. Original submission and claims archived.",
+      "actor": "Codex development operator, not a business approver"
+    },
+    {
+      "at": "2026-11-08T14:48:15+00:00",
+      "actor": "Codex — оператор проверки",
+      "action": "Передана содержательная проверка финального черновика, маршрут синтеза возвращён Gemini",
+      "reason": "Недостающая альтернатива закрытия, неверный знаменатель экономики, неподтверждённые обещания и пороги. Полный текст: final-review.txt; бюджет не увеличен."
+    },
+    {
+      "at": "2026-11-08T14:51:49+00:00",
+      "actor": "Codex — оператор и редактор проверки",
+      "kind": "explicit_editorial_revision",
+      "changes": [
+        "Отделены статистика мошенничества и спрос",
+        "Причинные утверждения заменены проверяемыми гипотезами",
+        "Входы экономики названы учебными допущениями брифа",
+        "Обещания ограничены подтверждением реализации",
+        "Уточнены рандомизация, событие, знаменатель и окно наблюдения",
+        "Разделены диагностика, A/B и годовое удержание",
+        "Возражения и условия пересмотра избавлены от неподтверждённой определённости"
+      ]
+    },
+    {
+      "at": "2026-11-08T14:54:16+00:00",
+      "actor": "Codex — оператор проверки",
+      "action": "Отозван вывод с неподтверждающим локатором и исключён ошибочный экономический сценарий из активного контекста",
+      "reason": "Исходный расчёт сохранён как economics-rejected.json; причины в analysis-review.json."
+    }
+  ],
+  "failures": [
+    {
+      "at": "2026-11-08T14:26:04+00:00",
+      "event": "provider_error",
+      "details": {
+        "code": "context_limit",
+        "uncertain_cost": false
+      }
+    },
+    {
+      "at": "2026-11-08T14:37:50+00:00",
+      "event": "provider_error",
+      "details": {
+        "code": "budget_limit",
+        "uncertain_cost": false
+      }
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_jfoT1d5UVusY7S9AE4S6"
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_xbXtSyXpCS181r0HHAo5"
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_F2JQsGtu8w4tngPs7NbB"
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_1v9ygRGUoGvr37rAsYPe"
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_h1eUtKD10QZzOZGUaaF1"
+    },
+    {
+      "at": "2026-11-08T14:20:01+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "origin_url должен быть HTTP(S) адресом первоисточника без credentials.",
+        "recoverable": true
+      },
+      "call_id": "tool_ingest_document_jx4cLqRSTHYBsI6mB6dr"
+    },
+    {
+      "at": "2026-11-08T14:20:29+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "Факт требует несинтетические источники. Учебные/модельные ответы дают гипотезы, а не доказательство спроса.",
+        "recoverable": true
+      },
+      "call_id": "toolu_012ePgcq2aEZHfcBbwEerAmb"
+    },
+    {
+      "at": "2026-11-08T14:20:38+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "Локатор не найден: используйте line:N/line:N-M или точную фразу из источника.",
+        "recoverable": true
+      },
+      "call_id": "toolu_01UADiv8sxJpR1vxPwX4t1KX"
+    },
+    {
+      "at": "2026-11-08T14:26:03+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "Неизвестный инструмент.",
+        "recoverable": true
+      },
+      "call_id": "tool_SubmitStrategyAlternatives_x9CcW3DMH3UVk4M2dvux"
+    },
+    {
+      "at": "2026-11-08T14:29:54+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "MaterialError",
+        "message": "ID вывода уже занят; сохраните исправление новым ID, отзовите прежний.",
+        "recoverable": true
+      },
+      "call_id": "tool_record_claim_QlWNX8n0eSCvztpLzG1z"
+    },
+    {
+      "at": "2026-11-08T14:42:43+00:00",
+      "event": "tool_error",
+      "source": "saved_tool_result",
+      "details": {
+        "error": "Нужны варианты оставить как есть, закрыть направление и изменить продукт.",
+        "status": "error"
+      },
+      "call_id": "toolu_01LQ7BwANBydTA47RdWXWzHP"
+    }
+  ],
+  "context_archives": [
+    {
+      "path": "state/history/messages-ad7fcc1c445b45aea546f855eed4c599.json",
+      "sha256": "0114ecc5a625c3c14e933f58ada78c20b96a6a088af3c5020f136d34d584d48f",
+      "messages": 50,
+      "at": "2026-11-08T14:29:07+00:00"
+    },
+    {
+      "path": "state/history/messages-f1022bbac8f945378c8911d1fe816e61.json",
+      "sha256": "50c74f97224da95609f8e16c6630138af2f7ea7cd87b8f4f00e900752fa92ede",
+      "messages": 19,
+      "at": "2026-11-08T14:35:54+00:00"
+    },
+    {
+      "path": "state/history/messages-85683f262c3341a4852682eefcb4ea40.json",
+      "sha256": "49520281ac33bb77f9e4bd527ea7483dac4731d92f97aa11ebdd3e08977e4dda",
+      "messages": 13,
+      "at": "2026-11-08T14:40:03+00:00"
+    },
+    {
+      "path": "state/history/messages-802815a723c14106abc973c3321f1105.json",
+      "sha256": "4372655310119473db19d8cdd4cef92755987cdc39461674fb0cf1112a789b0a",
+      "messages": 12,
+      "at": "2026-11-08T14:47:39+00:00"
+    }
+  ],
+  "authored_outputs_supplied": false,
+  "official_brief_used": false,
+  "business_decision_approved": false,
+  "development_environment": "Codex: разработка и запуск проверки; точный идентификатор модели среды не предоставлен"
+}

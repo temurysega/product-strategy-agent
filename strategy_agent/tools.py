@@ -37,7 +37,7 @@ SCHEMAS = [
     schema("record_claim", "Сохранить факт, гипотезу или прогноз. Факт требует действующий источник и локатор line:N, line:N-M либо точную цитату/фразу из материала. Синтетические источники не подтверждают реальные факты.", {"text": STR, "kind": {"type": "string", "enum": ["fact", "hypothesis", "forecast"]}, "source_ids": STRINGS, "locator": STR, "depends_on": STRINGS, "claim_id": STR}, ["text", "kind", "source_ids", "locator"]),
     schema("revoke_evidence", "Отозвать устаревший источник/вывод, пометить зависимые выводы stale и записать перечень затронутых оснований для пересмотра.", {"id": STR, "reason": STR}, ["id", "reason"]),
     schema("analyze_csv", "Рассчитать отношение сумм счётчиков по непересекающимся когортам и 95% интервал Wilson; отвергает пропуски, отрицательные значения, дубли, нулевой знаменатель. Не доказывает причинность.", {"path": STR, "numerator": STR, "denominator": STR, "group_by": STR, "period_column": STR, "unit": {"type": "string", "enum": ["users", "accounts", "events", "sessions", "families"]}}, ["path", "numerator", "denominator"]),
-    schema("economics", "Сценарная экономика и чувствительность. Каждый сценарий содержит name, users, conversion_rate(0..1), price, variable_cost_per_user, fixed_cost. Вывод является прогнозом, не фактом.", {"scenarios": {"type": "array", "items": {"type": "object"}}, "currency": STR, "period": STR}, ["scenarios"]),
+    schema("economics", "Сценарная экономика. Сценарий: name, users (вся аудитория), conversion_rate (доля ПЛАТЯЩИХ 0..1, не активация), price, variable_cost_per_user, fixed_cost, variable_cost_basis (all_users=на всю аудиторию; paying_users=на платящих). Явно выбери знаменатель по источнику. По умолчанию all_users с предупреждением. Единицы цены/затрат и период должны совпадать. CAC учитывается отдельно. Вывод — прогноз, не факт.", {"scenarios": {"type": "array", "items": {"type": "object"}}, "currency": STR, "period": STR}, ["scenarios"]),
     schema("experiment_size", "Плановая оценка размера A/B-теста двух долей с равными группами. MDE — абсолютная доля, например 0.03 = 3 п.п.", {"baseline": {"type": "number"}, "absolute_mde": {"type": "number"}, "alpha": {"type": "number"}, "power": {"type": "number"}}, ["baseline", "absolute_mde"]),
     schema("annotate", "Разделить наблюдение и интерпретацию интервью/UX-материала; наблюдение обязательно имеет проверяемый локатор в источнике. Изображение без описания не считается просмотренным.", {"source_id": STR, "locator": STR, "observation": STR, "interpretation": STR, "category": {"type": "string", "enum": ["interview", "ux", "contradiction"]}}, ["source_id", "locator", "observation", "interpretation", "category"]),
     schema("write_report", "Сохранить черновик artifacts/report.md с цитатами [ID источника/вывода]. Проверяет существование ссылок; не утверждает решение за человека. Для решения используй submit_strategy.", {"content": STR}, ["content"]),
@@ -261,6 +261,14 @@ class Toolbox:
         sources = [self._source(sid) for sid in source_ids]
         if kind == "fact" and (not sources or any(s["provenance"] == "synthetic" for s in sources)):
             raise MaterialError("Факт требует несинтетические источники. Учебные/модельные ответы дают гипотезы, а не доказательство спроса.")
+        if kind == "fact":
+            # A period copied from a model-generated title is not evidence. This
+            # narrow deterministic check caught an observed 2025→2024 year shift.
+            stated_years = set(re.findall(r"(?<!\d)(?:19|20)\d{2}(?!\d)", text))
+            primary_text = "\n".join(source["content"] for source in sources)
+            supported_years = set(re.findall(r"(?<!\d)(?:19|20)\d{2}(?!\d)", primary_text))
+            if stated_years - supported_years:
+                raise MaterialError("В первичном тексте нет указанных годов/четырёхзначных значений: " + ", ".join(sorted(stated_years - supported_years)) + ". Проверьте период; название источника, заданное моделью, не доказательство.")
         for source in sources:
             self._locator(source, locator)
         claims = self._read("claims")

@@ -1,6 +1,8 @@
 {
   "primary_model": "google/gemini-2.5-flash",
   "review_model": "anthropic/claude-sonnet-4.5",
+  "respondent_model": "",
+  "analyst_model": "",
   "max_output_tokens": 5000,
   "default_budget_usd": 2.0,
   "max_steps_per_run": 12,

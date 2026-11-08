@@ -12,17 +12,63 @@ from strategy_agent.provider import OpenRouter, ProviderError, load_env, number
 
 
 class ProviderTests(unittest.TestCase):
+    def cached_provider(self, opener, key="test", model="model", parameters=None):
+        provider = OpenRouter(key, opener=opener)
+        provider._models = {model: {"supported_parameters": parameters if parameters is not None else ["max_tokens", "temperature", "tools", "tool_choice"]}}
+        return provider
+
     def test_payload_and_accounting_come_from_provider(self):
         requests = []
         def opener(request, timeout):
             requests.append(request)
             return io.BytesIO(json.dumps({"choices": [{"message": {"content": "ok"}}], "usage": {"cost": 0.03}}).encode())
-        provider = OpenRouter("test-secret", opener=opener)
+        provider = self.cached_provider(opener, key="test-secret", model="example/model")
         result = provider.complete("example/model", [{"role": "user", "content": "Проверка"}], [])
         payload = json.loads(requests[0].data)
         self.assertEqual(payload["model"], "example/model")
         self.assertEqual(requests[0].headers["Authorization"], "Bearer test-secret")
         self.assertEqual(result["usage"]["cost"], 0.03)
+
+    def test_completion_parameters_follow_reasoning_model_catalog(self):
+        requests = []
+        def opener(request, timeout):
+            requests.append(request)
+            return io.BytesIO(b'{"choices": [], "usage": {"cost": 0.01}}')
+        provider = self.cached_provider(opener, parameters=["max_completion_tokens"])
+        provider.complete("model", [{"role": "user", "content": "Analyse"}], [], max_tokens=700)
+        payload = json.loads(requests[0].data)
+        self.assertEqual(payload["max_completion_tokens"], 700)
+        self.assertNotIn("max_tokens", payload)
+        self.assertNotIn("temperature", payload)
+        self.assertTrue(payload["provider"]["require_parameters"])
+
+    def test_uncached_completion_reads_public_capabilities_before_post(self):
+        requests = []
+        def opener(request, timeout):
+            requests.append(request)
+            if request.get_method() == "GET":
+                return io.BytesIO(b'{"data":[{"id":"model","supported_parameters":["max_tokens","temperature","tools"]}]}')
+            return io.BytesIO(b'{"choices": [], "usage": {"cost": 0.01}}')
+        provider = OpenRouter("test-secret", opener=opener)
+        provider.complete("model", [], [{"type": "function"}], max_tokens=800)
+        self.assertEqual([request.get_method() for request in requests], ["GET", "POST"])
+        self.assertNotIn("Authorization", requests[0].headers)
+        payload = json.loads(requests[1].data)
+        self.assertEqual(payload["max_tokens"], 800)
+        self.assertEqual(payload["temperature"], 0.2)
+        self.assertIn("tools", payload)
+        self.assertNotIn("tool_choice", payload)
+        provider.complete("model", [], [])
+        self.assertEqual([request.get_method() for request in requests], ["GET", "POST", "POST"])
+
+    def test_model_without_output_cap_is_rejected_before_paid_request(self):
+        requests = []
+        provider = self.cached_provider(lambda request, timeout: requests.append(request), parameters=["temperature"])
+        with self.assertRaises(ProviderError) as context:
+            provider.complete("model", [], [])
+        self.assertEqual(context.exception.code, "unsupported_output_limit")
+        self.assertFalse(context.exception.uncertain)
+        self.assertEqual(requests, [])
 
     def test_http_errors_do_not_echo_secrets_or_retry(self):
         count = []
@@ -30,7 +76,7 @@ class ProviderTests(unittest.TestCase):
             count.append(1)
             raise urllib.error.HTTPError(request.full_url, 503, "secret echoed", {}, io.BytesIO(b"test-secret"))
         with self.assertRaises(ProviderError) as context:
-            OpenRouter("test-secret", opener=opener).complete("model", [], [])
+            self.cached_provider(opener, key="test-secret").complete("model", [], [])
         self.assertNotIn("test-secret", str(context.exception))
         self.assertTrue(context.exception.uncertain)
         self.assertEqual(len(count), 1)
@@ -39,14 +85,14 @@ class ProviderTests(unittest.TestCase):
         def opener(request, timeout):
             raise urllib.error.HTTPError(request.full_url, 401, "unauthorized", {}, None)
         with self.assertRaises(ProviderError) as context:
-            OpenRouter("invalid", opener=opener).complete("model", [], [])
+            self.cached_provider(opener, key="invalid").complete("model", [], [])
         self.assertFalse(context.exception.uncertain)
 
     def test_http_timeout_is_unknown_billing(self):
         def opener(request, timeout):
             raise urllib.error.HTTPError(request.full_url, 408, "timeout", {}, None)
         with self.assertRaises(ProviderError) as context:
-            OpenRouter("test", opener=opener).complete("model", [], [])
+            self.cached_provider(opener).complete("model", [], [])
         self.assertTrue(context.exception.uncertain)
 
     def test_reservation_uses_live_catalog_and_requires_tool_support(self):
@@ -92,7 +138,7 @@ class ProviderTests(unittest.TestCase):
         def opener(request, timeout):
             raise http.client.IncompleteRead(b"partial")
         with self.assertRaises(ProviderError) as context:
-            OpenRouter("test", opener=opener).complete("model", [], [])
+            self.cached_provider(opener).complete("model", [], [])
         self.assertTrue(context.exception.uncertain)
 
 

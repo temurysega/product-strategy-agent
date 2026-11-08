@@ -44,7 +44,7 @@ def parser():
         run.add_argument("--max-steps", type=int, default=12)
         run.add_argument("--budget", type=positive)
         run.add_argument("--quiet", action="store_true")
-    for name in ("status", "pause"):
+    for name in ("status", "pause", "compact"):
         cmd = commands.add_parser(name)
         cmd.add_argument("--project", required=True)
     review = commands.add_parser("review", help="Проверить срок обязательства и актуальность оснований решения")
@@ -91,10 +91,17 @@ def main(argv=None):
             from .runtime import RunEngine
             import os
             config = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
-            models = [os.environ.get("OPENROUTER_MODEL") or config["primary_model"], os.environ.get("OPENROUTER_REVIEW_MODEL") or config["review_model"]]
-            output = {"python": sys.version.split()[0], "python_supported": sys.version_info >= (3, 11),
+            primary = os.environ.get("OPENROUTER_MODEL") or config["primary_model"]
+            routes = {
+                "orchestrator": primary,
+                "critic": os.environ.get("OPENROUTER_REVIEW_MODEL") or config["review_model"],
+                "interview_simulator": os.environ.get("OPENROUTER_RESPONDENT_MODEL") or config.get("respondent_model") or primary,
+                "analyst": os.environ.get("OPENROUTER_ANALYST_MODEL") or config.get("analyst_model") or primary,
+            }
+            models = list(dict.fromkeys(routes.values()))
+            output = {"python": sys.version.split()[0], "python_supported": sys.version_info >= (3, 12),
                       "openrouter_key_configured": bool(os.environ.get("OPENROUTER_API_KEY")),
-                      "models": models, "network_checked": args.online, "live_generation_tested": False,
+                      "models": models, "model_routes": routes, "network_checked": args.online, "live_generation_tested": False,
                       "project_template": str(ROOT), "dependencies": "stdlib; optional pypdf for PDF"}
             if args.online:
                 catalog = OpenRouter().models()
@@ -129,6 +136,10 @@ def main(argv=None):
             output["pause_requested"] = project.pause_requested()
             output["unknown_requests"] = [entry for entry in state["ledger"] if entry.get("cost_usd") is None]
             print_json(output)
+            return 0
+        if args.command == "compact":
+            from .context import compact
+            print_json(compact(project))
             return 0
         if args.command in ("run", "resume"):
             if not 1 <= args.max_steps <= 100:

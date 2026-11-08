@@ -1,0 +1,47 @@
+{
+  "wall_time_seconds": 429.609,
+  "runs": [
+    {
+      "ended_at": "2026-11-08T14:21:07.882134+00:00",
+      "seconds": 78.101,
+      "status": "paused",
+      "steps_total": 12
+    },
+    {
+      "ended_at": "2026-11-08T14:26:04.113181+00:00",
+      "seconds": 114.79,
+      "status": "paused",
+      "steps_total": 14
+    },
+    {
+      "ended_at": "2026-11-08T14:31:23.986858+00:00",
+      "seconds": 94.022,
+      "status": "awaiting_approval",
+      "steps_total": 22
+    },
+    {
+      "ended_at": "2026-11-08T14:37:50.383149+00:00",
+      "seconds": 24.742,
+      "status": "paused",
+      "steps_total": 27
+    },
+    {
+      "ended_at": "2026-11-08T14:40:26.291840+00:00",
+      "seconds": 22.018,
+      "status": "paused",
+      "steps_total": 30
+    },
+    {
+      "ended_at": "2026-11-08T14:42:43.572719+00:00",
+      "seconds": 82.615,
+      "status": "paused",
+      "steps_total": 31
+    },
+    {
+      "ended_at": "2026-11-08T14:48:30.647037+00:00",
+      "seconds": 13.321,
+      "status": "awaiting_approval",
+      "steps_total": 32
+    }
+  ]
+}

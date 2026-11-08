@@ -2,3 +2,6 @@
 *.png binary
 *.pdf binary
 *.zip binary
+# Preserve exact evidence bytes: audit SHA-256 values include original line endings.
+submission/live/** -text
+submission/benchmark/** -text

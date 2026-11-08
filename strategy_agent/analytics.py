@@ -79,15 +79,21 @@ def economics(scenarios: list[dict], currency: str = "RUB", period: str = "month
         price = number(scenario.get("price"), "price")
         variable = number(scenario.get("variable_cost_per_user"), "variable_cost_per_user")
         fixed = number(scenario.get("fixed_cost"), "fixed_cost")
+        basis = scenario.get("variable_cost_basis", "all_users")
+        if basis not in ("all_users", "paying_users"):
+            raise ValueError("variable_cost_basis: all_users или paying_users; укажите знаменатель затрат из источника.")
         if conversion > 1:
             raise ValueError("conversion_rate должна быть долей от 0 до 1.")
         revenue = users * conversion * price
-        costs = users * variable + fixed
-        margin_per_user = conversion * price - variable
+        cost_users = users if basis == "all_users" else users * conversion
+        costs = cost_users * variable + fixed
+        margin_per_user = conversion * price - variable * (1 if basis == "all_users" else conversion)
         if not all(math.isfinite(v) for v in (revenue, costs, margin_per_user, revenue - costs)):
             raise ValueError("Сценарий вызывает переполнение: проверьте порядок величин и единицы.")
-        result.append({"name": str(scenario.get("name", "Сценарий")), "inputs": scenario, "revenue": round(revenue, 2), "costs": round(costs, 2), "contribution": round(revenue - costs, 2), "break_even_users": math.ceil(fixed / margin_per_user) if margin_per_user > 0 else None})
-    return {"kind": "forecast", "currency": currency, "period": period, "scenarios": result, "formula": "revenue=users*conversion_rate*price; costs=users*variable_cost_per_user+fixed_cost", "limitations": ["Входные числа — сценарные допущения, пока не привязаны к источникам.", "Цена и затраты должны относиться к одному периоду. Налоги, CAC и стоимость капитала включите во входные затраты при необходимости."]}
+        result.append({"name": str(scenario.get("name", "Сценарий")), "inputs": scenario, "variable_cost_basis": basis, "variable_cost_users": cost_users,
+                       "warnings": [] if "variable_cost_basis" in scenario else ["Знаменатель затрат не задан: для совместимости принят all_users. Проверьте источник до использования результата."],
+                       "revenue": round(revenue, 2), "costs": round(costs, 2), "contribution": round(revenue - costs, 2), "break_even_users": math.ceil(fixed / margin_per_user) if margin_per_user > 0 else None})
+    return {"kind": "forecast", "currency": currency, "period": period, "scenarios": result, "formula": "revenue=users*conversion_rate*price; costs=variable_cost_users*variable_cost_per_user+fixed_cost; variable_cost_users=users for all_users, users*conversion_rate for paying_users", "limitations": ["Входные числа — сценарные допущения, пока не привязаны к источникам.", "conversion_rate — доля платящих, не активация. Знаменатель затрат должен соответствовать источнику.", "Цена и затраты должны относиться к одному периоду. CAC не является повторяющимся расходом: учитывайте приобретение клиентов отдельно, не дублируя его каждый месяц."]}
 
 
 def experiment_size(baseline: float, absolute_mde: float, alpha: float = .05, power: float = .8) -> dict:

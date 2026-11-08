@@ -1,0 +1,52 @@
+[
+  {
+    "method": "ratio_of_sums; Wilson 95%",
+    "formula": "sum(numerator)/sum(denominator)",
+    "unit": "families",
+    "numerator_column": "activated",
+    "denominator_column": "invited",
+    "group_by": "variant",
+    "period_column": null,
+    "groups": [
+      {
+        "group": "control",
+        "numerator": 200,
+        "denominator": 1000,
+        "rows": [
+          2
+        ],
+        "periods": [],
+        "rate": 0.2,
+        "wilson_95": [
+          0.17637709044319852,
+          0.22591896464813463
+        ]
+      },
+      {
+        "group": "guided",
+        "numerator": 260,
+        "denominator": 1000,
+        "rows": [
+          3
+        ],
+        "periods": [],
+        "rate": 0.26,
+        "wilson_95": [
+          0.23376861850763092,
+          0.2880682255654355
+        ]
+      }
+    ],
+    "assumptions": [
+      "Строки описывают непересекающиеся выборки; инструмент не может установить это из счётчиков.",
+      "Интервал предполагает независимые бинарные наблюдения. Для повторных событий по пользователю нужен кластерный анализ.",
+      "Наблюдаемая разница не доказывает причинность."
+    ],
+    "warnings": [
+      "Период не задан; нельзя сравнивать результаты с другим периодом без проверки."
+    ],
+    "input": "materials/activation.csv",
+    "sha256": "f0a3da935369805b4d103a15847d291cae1b9e403b730756edd0fe469cc0e478",
+    "computed_at": "2026-11-08T14:20:18.670933+00:00"
+  }
+]

@@ -1,0 +1,59 @@
+[
+  {
+    "kind": "forecast",
+    "currency": "RUB",
+    "period": "month",
+    "scenarios": [
+      {
+        "name": "optimistic",
+        "inputs": {
+          "name": "optimistic",
+          "variable_cost_per_user": 49,
+          "users": 10000,
+          "price": 149,
+          "fixed_cost": 900000,
+          "conversion_rate": 0.26
+        },
+        "revenue": 387400.0,
+        "costs": 1390000.0,
+        "contribution": -1002600.0,
+        "break_even_users": null
+      },
+      {
+        "name": "base",
+        "inputs": {
+          "name": "base",
+          "users": 10000,
+          "fixed_cost": 900000,
+          "price": 149,
+          "variable_cost_per_user": 69,
+          "conversion_rate": 0.2
+        },
+        "revenue": 298000.0,
+        "costs": 1590000.0,
+        "contribution": -1292000.0,
+        "break_even_users": null
+      },
+      {
+        "name": "pessimistic",
+        "inputs": {
+          "conversion_rate": 0.15,
+          "users": 10000,
+          "fixed_cost": 900000,
+          "variable_cost_per_user": 99,
+          "name": "pessimistic",
+          "price": 149
+        },
+        "revenue": 223500.0,
+        "costs": 1890000.0,
+        "contribution": -1666500.0,
+        "break_even_users": null
+      }
+    ],
+    "formula": "revenue=users*conversion_rate*price; costs=users*variable_cost_per_user+fixed_cost",
+    "limitations": [
+      "Входные числа — сценарные допущения, пока не привязаны к источникам.",
+      "Цена и затраты должны относиться к одному периоду. Налоги, CAC и стоимость капитала включите во входные затраты при необходимости."
+    ]
+  }
+]

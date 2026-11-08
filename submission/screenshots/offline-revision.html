@@ -1,0 +1,23 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><style>
+            *{box-sizing:border-box}body{margin:0;background:#0e1c2a;color:#dfebef;font:18px/1.5 'Segoe UI',Arial;padding:38px}
+            .brand{color:#78d8bf;letter-spacing:3px;font-size:13px;font-weight:700}h1{font-size:30px;margin:12px 0 8px;line-height:1.2}
+            .sub{color:#a9bec9;font-size:15px;margin:0 0 24px}article{background:#172c3c;border:1px solid #315064;border-radius:12px;margin:16px 0;overflow:hidden}
+            .label{padding:13px 20px;background:#203b4c;color:#8be3cc;font-size:14px;font-weight:600;overflow-wrap:anywhere}
+            pre{font:16px/1.55 'Segoe UI',Arial;white-space:pre-wrap;overflow-wrap:anywhere;margin:0;padding:20px}
+            footer{color:#a9bec9;font-size:13px;margin-top:24px;line-height:1.5}b{color:#dbe9ed}
+            </style><div class="brand">ЖУРНАЛ АГЕНТА · СОХРАНЁННЫЕ ДАННЫЕ</div><h1>Изменилось основание — пересмотрен вывод</h1><p class="sub">OFFLINE FIXTURE · локальные инструменты · модель не вызывалась</p><article><div class="label">СОХРАНЁННЫЙ ВЫВОД scripts/demo.py --phase revise</div><pre>{
+  &quot;mode&quot;: &quot;offline_fixture&quot;,
+  &quot;revision&quot;: {
+    &quot;id&quot;: &quot;C-economics&quot;,
+    &quot;reason&quot;: &quot;R08: синтетическое изменение годовой дополнительной маржи 600 → 100 RUB; прежнее допущение больше не применяется.&quot;,
+    &quot;at&quot;: &quot;2026-11-08T14:53:44.467424+00:00&quot;,
+    &quot;affected_claims&quot;: [
+      &quot;C-pilot&quot;
+    ],
+    &quot;action&quot;: &quot;Пересмотреть решения, ссылающиеся на эти основания; прежний отчёт остаётся историческим черновиком.&quot;
+  },
+  &quot;updated_recommendation&quot;: &quot;status_quo&quot;,
+  &quot;break_even_families&quot;: 9000,
+  &quot;state&quot;: &quot;awaiting_approval&quot;,
+  &quot;note&quot;: &quot;Новые данные загружены, экономика пересчитана, две стратегии обновлены. Исходный черновик сохранён; новое решение человека не имитируется.&quot;
+}</pre></article><footer>Это проверка механики пересмотра на учебных данных. Источник: submission/validation.json. Не live-ответ LLM и не наблюдаемый результат продуктового эксперимента.</footer></html>
